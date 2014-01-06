@@ -1,3 +1,9 @@
 .sortable {
-	min-height: 10px;
+	min-height: 25px;
+	background: aliceblue;
+	padding: 15px;
+}
+
+.tabs-content > .content {
+	width: 100%;
 }
