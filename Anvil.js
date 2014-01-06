@@ -5,6 +5,10 @@ if (Meteor.isClient) {
 		return Tasks.find({}, {sort: {rank: 1}});
 	};
 
+	Template.team.tasks_unassigned = function() {
+		return Tasks.find({assigned: undefined}, {sort: {rank: 1}});
+	};
+
 	Template.team.users = function() {
 		return Meteor.users.find();
 	};
@@ -17,7 +21,8 @@ if (Meteor.isClient) {
 		'click #add-task': function (bla) {
 			name = $('#task-name').val();
 			if (name.length > 0 && Meteor.userId()) {
-				var newRank = Tasks.findOne({}, {sort: {rank: -1}}) ? Tasks.findOne({}, {sort: {rank: -1}}).rank : 0;
+				var toRankElement = Tasks.findOne({}, {sort: {rank: -1}});
+				var newRank = toRankElement ? toRankElement.rank : 0;
 				newRank += 1;
 				Tasks.insert({
 					name: name,

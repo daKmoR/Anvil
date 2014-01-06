@@ -3,52 +3,65 @@
 </head>
 
 <body>
-	{{> loginButtons}}
-	<br />
-
 	{{> team}}
 </body>
 
 
 <template name="team">
-	<h1>Team View!</h1>
-
 	<div class="row">
-		<div class="small-4 column">
-			<input class="" id="task-name" type="text" value="" />
-			<button id="add-task">add</button>
+		{{> loginButtons}}
+		<br />
+		<h1>Team View!</h1>
 
-			<div class="tasks sortable">
-				{{#each tasks}}
-				<div class="task">
-					<h2>{{name}} <span>{{rank}}</span></h2>
-					<button class="remove-task">remove</button>
+		<div class="small-6 column">
+			<div class="panel">
+				<input class="" id="task-name" type="text" value="" />
+				<button id="add-task" class="tiny round">add</button>
+			</div>
+
+			<dl class="tabs" data-tab>
+				<dd class="active"><a href="#tab-unassigned">Unassigned</a></dd>
+				<dd><a href="#tab-all">All</a></dd>
+				<dd><a href="#tab-projects">Projects</a></dd>
+			</dl>
+			<div class="tabs-content">
+				<div class="content active" id="tab-unassigned">
+					<div class="tasks sortable">
+						{{#each tasks_unassigned}}
+							<div class="task">
+								<h5>{{name}} <button class="remove-task tiny round">x</button></h5>
+							</div>
+						{{/each}}
+					</div>
 				</div>
-				{{/each}}
+				<div class="content" id="tab-all">
+					<div class="tasks sortable">
+						{{#each tasks}}
+							<div class="task">
+								<h5>{{name}} <button class="remove-task tiny round">x</button></h5>
+							</div>
+						{{/each}}
+					</div>
+				</div>
+				<div class="content" id="tab-projects">
+					<p>selection of projects... todo</p>
+				</div>
 			</div>
 
 		</div>
 
-		<div class="users">
-			{{#each users}}
-			<div class="user small-4 column">
-				<h3>id: {{_id}}</h3>
-				<p>E-Mail:
-					 {{#each emails}}
-					 	{{address}}
-					 {{/each}}
-				</p>
+		{{#each users}}
+			<div class="user small-3 column">
+				<h4>#user#</h4>
 				<div class="tasks sortable" data-user-id="{{_id}}">
 					{{#each assigned_tasks _id}}
 						<div class="task">
-							<h2>{{name}} <span>{{rank}}</span></h2>
-							<button class="remove-task">remove</button>
+							<h5>{{name}} <button class="remove-task tiny round">x</button></h5>
 						</div>
 					{{/each}}
 				</div>
 			</div>
-			{{/each}}
-		</div>
+		{{/each}}
 
 	</div>
 
@@ -61,4 +74,10 @@
 		<a class="close-reveal-modal">&#215;</a>
 	</div>
 
+</template>
+
+<template name="task">
+	<div class="task">
+		<h5>{{name}} <button class="remove-task tiny round">x</button></h5>
+	</div>
 </template>
