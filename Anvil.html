@@ -8,12 +8,12 @@
 
 
 <template name="team">
-	<div class="row">
+	<div class="team">
 		{{> loginButtons}}
 		<br />
 		<h1>Team View!</h1>
 
-		<div class="small-6 column">
+		<div class="task-lists column">
 			<dl class="tabs" data-tab>
 				<dd class="active"><a href="#tab-unassigned">Unassigned</a></dd>
 				<dd><a href="#tab-all">All</a></dd>
@@ -28,21 +28,13 @@
 					</div>
 					<div class="tasks sortable">
 						<span class="watermark">Tasks</span>
-						{{#each tasks_unassigned}}
-							<div class="task">
-								<a href="#" data-reveal-id="task-detail-{{_id}}">{{name}}</a> <a class="remove-task right">&#215;</a>
-							</div>
-						{{/each}}
+						{{> task_list tasks_unassigned}}
 					</div>
 				</div>
 				<div class="content" id="tab-all">
 					<div class="tasks sortable">
 						<span class="watermark">Tasks</span>
-						{{#each tasks}}
-							<div class="task">
-								<a href="#" data-reveal-id="task-detail-{{_id}}">{{name}}</a> <a class="remove-task right">&#215;</a>
-							</div>
-						{{/each}}
+							{{> task_list tasks}}
 					</div>
 				</div>
 				<div class="content" id="tab-projects">
@@ -59,7 +51,7 @@
 		</div>
 
 		{{#each users}}
-			<div class="user small-3 column">
+			<div class="user column">
 				<h4>{{profile.name}}</h4>
 				<div class="tasks sortable" data-user-id="{{_id}}">
 					<span class="watermark">Tasks</span>
@@ -78,6 +70,14 @@
 		{{> task_detail}}
 	{{/each}}
 
+</template>
+
+<template name="task_list">
+	{{#each this}}
+	<div class="task">
+		<a href="#" data-reveal-id="task-detail-{{_id}}">{{name}}</a> <a class="remove-task right">&#215;</a>
+	</div>
+	{{/each}}
 </template>
 
 <template name="task_detail">
