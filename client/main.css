@@ -7,3 +7,22 @@
 .tabs-content > .content {
 	width: 100%;
 }
+
+.message {
+	margin: 0 0 2px 0;
+}
+
+.message h6 {
+	font-family: monospace;
+	font-weight: bold;
+	padding: 0 10px 0 0;
+	margin: 0;
+}
+
+.message h6, .message pre {
+	float: left;
+}
+
+.message pre {
+	margin-top: 3px;
+}

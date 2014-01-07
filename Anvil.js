@@ -38,6 +38,20 @@ if (Meteor.isClient) {
 
 	});
 
+	Template.task_detail.events({
+		'keypress .new-task-message': function(event, el, bla) {
+			if (event.keyCode === 13 && event.shiftKey === false) { //Enter without shift
+				var textarea = $(event.target);
+				Tasks.update(this._id, { $push: { messages: textarea.val() }});
+				$(textarea).blur();
+				$(textarea).val(''); //reset textarea
+				Meteor.setTimeout(function() {
+					$(textarea).focus();
+				}, 10); // fanzy enough we have to wait a split second or the cursor and whitespaces will stay
+			}
+		}
+	});
+
 	SimpleRationalRanks = {
 		beforeFirst: function(firstRank) {
 			return firstRank - 1;
@@ -83,6 +97,8 @@ if (Meteor.isClient) {
 			console.log(response.errors);
 		});
 
+		$('textarea').autosize();
+
 	}
 
 }
@@ -90,6 +106,9 @@ if (Meteor.isClient) {
 if (Meteor.isServer) {
 	Meteor.startup(function () {
 		// code to run on server at startup
+
+		//Meteor.users.update({_id: 'b3rCTrWY8kNfswQKN'}, {$set: { profile: { name: 'Birgit' }}});
+		//Meteor.users.update({_id: 'pmAJR79vwnXQ9h6NY'}, {$set: { profile: { name: 'Thomas' }}});
 	});
 
 }

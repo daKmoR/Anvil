@@ -15,7 +15,7 @@
 
 		<div class="small-6 column">
 			<div class="panel">
-				<input class="" id="task-name" type="text" value="" />
+				<label for="task-name"></label><input class="" id="task-name" type="text" value="" />
 				<button id="add-task" class="tiny round">add</button>
 			</div>
 
@@ -52,7 +52,7 @@
 
 		{{#each users}}
 			<div class="user small-3 column">
-				<h4>#user#</h4>
+				<h4>{{profile.name}}</h4>
 				<div class="tasks sortable" data-user-id="{{_id}}">
 					{{#each assigned_tasks _id}}
 						<div class="task">
@@ -72,11 +72,19 @@
 </template>
 
 <template name="task_detail">
-	<div id="task-detail-{{_id}}" class="task-detai reveal-modal" data-reveal>
+	<div id="task-detail-{{_id}}" class="task-detail reveal-modal" data-reveal>
 		<h2>{{name}}</h2>
 		<a class="close-reveal-modal">&#215;</a>
+		<div class="messages">
+			{{#each messages}}
+				<div class="message clearfix">
+					<h6>Max: </h6>
+					<pre>{{this}}</pre>
+				</div>
+			{{/each}}
+		</div>
 		<label>
-			<textarea></textarea>
+			<textarea class="new-task-message"></textarea>
 		</label>
 	</div>
 </template>
