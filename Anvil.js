@@ -53,6 +53,11 @@ if (Meteor.isClient) {
 
 		'click .remove-task': function() {
 			Tasks.remove(this._id)
+		},
+
+		'click .dialog': function(event) {
+			var id = $(event.target).attr('href');
+			$(id).modal();
 		}
 
 	});
@@ -124,9 +129,12 @@ if (Meteor.isClient) {
 			}
 		});
 
-		$(document).foundation(function (response) {
-			console.log(response.errors);
-		});
+//		$(document).foundation(function (response) {
+//			console.log(response.errors);
+//		});
+
+		$('#tabs').tabs();
+		//$('.task-detail').dialog({ autoOpen: false });
 
 		$('textarea').autosize();
 

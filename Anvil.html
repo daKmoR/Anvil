@@ -14,30 +14,26 @@
 		<h1>Team View!</h1>
 
 		<div class="task-lists column">
-			<dl class="tabs" data-tab>
-				<dd class="active"><a href="#tab-unassigned">Unassigned</a></dd>
-				<dd><a href="#tab-all">All</a></dd>
-				<dd><a href="#tab-projects">Projects</a></dd>
-			</dl>
-			<div class="tabs-content">
-				<div class="content active" id="tab-unassigned">
-					<div class="panel">
-						<label>
-							<textarea class="new-task" placeholder="New Task"></textarea>
-						</label>
-					</div>
+			<ul class="nav nav-tabs">
+				<li><a href="#tab-unassigned" data-toggle="tab">Unassigned</a></li>
+				<li><a href="#tab-all" data-toggle="tab">All</a></li>
+				<li><a href="#tab-projects" data-toggle="tab">Projects</a></li>
+			</ul>
+			<div class="tab-content">
+				<div class="tab-pane active" id="tab-unassigned">
+					<textarea class="new-task form-control" placeholder="New Task"></textarea>
 					<div class="tasks sortable" data-user-tasks-list="tasks-unassigned">
 						<span class="watermark">Tasks</span>
 						{{> task_list tasks_unassigned}}
 					</div>
 				</div>
-				<div class="content" id="tab-all">
+				<div class="tab-pane" id="tab-all">
 					<div class="tasks sortable">
 						<span class="watermark">Tasks</span>
 							{{> task_list tasks}}
 					</div>
 				</div>
-				<div class="content" id="tab-projects">
+				<div class="tab-pane" id="tab-projects">
 					<div class="projects">
 						{{#each projects}}
 							<div class="project">
@@ -47,7 +43,6 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
 
 		{{#each users}}
@@ -57,7 +52,7 @@
 					<span class="watermark">Active</span>
 					{{#each active_task _id}}
 						<div class="task">
-							<a href="#" data-reveal-id="task-detail-{{_id}}">{{name}}</a> <a class="remove-task right">&#215;</a>
+							<a href="#task-detail-{{_id}}" class="dialog">{{name}}</a> <a class="remove-task right">&#215;</a>
 						</div>
 					{{/each}}
 				</div>
@@ -65,7 +60,7 @@
 					<span class="watermark">Tasks</span>
 					{{#each assigned_tasks _id}}
 						<div class="task">
-							<a href="#" data-reveal-id="task-detail-{{_id}}">{{name}}</a> <a class="remove-task right">&#215;</a>
+							<a href="#task-detail-{{_id}}" class="dialog">{{name}}</a> <a class="remove-task right">&#215;</a>
 						</div>
 					{{/each}}
 				</div>
@@ -83,25 +78,36 @@
 <template name="task_list">
 	{{#each this}}
 	<div class="task">
-		<a href="#" data-reveal-id="task-detail-{{_id}}">{{name}}</a> <a class="remove-task right">&#215;</a>
+		<a href="#task-detail-{{_id}}" class="dialog">{{name}}</a> <a class="remove-task right">&#215;</a>
 	</div>
 	{{/each}}
 </template>
 
 <template name="task_detail">
-	<div id="task-detail-{{_id}}" class="task-detail reveal-modal" data-reveal>
-		<h2>{{name}}</h2>
-		<a class="close-reveal-modal">&#215;</a>
-		<div class="messages">
-			{{#each messages}}
-				<div class="message clearfix">
-					<h6>Max: </h6>
-					<pre>{{this}}</pre>
+	<!-- Modal -->
+	<div class="modal fade task-detail" id="task-detail-{{_id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">{{name}}</h4>
 				</div>
-			{{/each}}
-		</div>
-		<label>
-			<textarea class="new-task-message"></textarea>
-		</label>
-	</div>
+				<div class="modal-body">
+					<div class="messages">
+						{{#each messages}}
+						<div class="message clearfix">
+							<h6>Max: </h6>
+							<pre>{{this}}</pre>
+						</div>
+						{{/each}}
+					</div>
+					<textarea class="new-task-message form-control"></textarea>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 </template>

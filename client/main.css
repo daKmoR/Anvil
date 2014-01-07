@@ -1,3 +1,11 @@
+body {
+	font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+}
+
+.right {
+	float: right;
+}
+
 .sortable {
 	min-height: 25px;
 	background: aliceblue;
@@ -13,7 +21,6 @@
 }
 
 .message h6 {
-	font-family: monospace;
 	font-weight: bold;
 	padding: 0 10px 0 0;
 	margin: 0;
@@ -44,8 +51,8 @@
 .watermark {
 	position: absolute;
 	font-size: 70px;
-	left: -65px;
-	top: 65px;
+	left: -60px;
+	top: 49px;
 	opacity: 0.1;
 	-webkit-transform: rotate(90deg);
 }
@@ -53,6 +60,7 @@
 .team .column {
 	width: 350px;
 	float: left;
+	margin-left: 20px;
 }
 
 [class*="column"]+[class*="column"]:last-child {
@@ -64,7 +72,7 @@
 }
 
 .tasks.active {
-	min-height: 63px;
+	min-height: 69px;
 	background: palegreen;
 	margin-bottom: 10px;
 }
@@ -73,5 +81,10 @@
 	-webkit-transform: rotate(0deg);
 	left: 10px;
 	top: 0;
-	font-size: 65px;
+	font-size: 49px;
+}
+
+.new-task {
+	margin: 10px;
+	width: 94%;
 }
