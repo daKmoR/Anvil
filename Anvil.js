@@ -11,7 +11,7 @@ if (Meteor.isClient) {
 	};
 
 	Template.team.tasks_unassigned = function() {
-		return Tasks.find({assigned: undefined}, {sort: {rank: 1}});
+		return Tasks.find({assigned: false}, {sort: {rank: 1}});
 	};
 
 	Template.team.users = function() {
@@ -19,7 +19,11 @@ if (Meteor.isClient) {
 	};
 
 	Template.team.assigned_tasks = function(userId) {
-		return Tasks.find({assigned: userId}, {sort: {rank: 1}});
+		return Tasks.find({assigned: userId, active: false}, {sort: {rank: 1}});
+	};
+
+	Template.team.active_task = function(userId) {
+		return Tasks.find({assigned: userId, active: true}, {sort: {rank: 1}});
 	};
 
 	Template.team.events({
@@ -34,7 +38,9 @@ if (Meteor.isClient) {
 					Tasks.insert({
 						name: textarea.val(),
 						creator: Meteor.userId(),
-						rank: newRank
+						rank: newRank,
+						active: false,
+						assigned: false
 					});
 				}
 				$(textarea).blur();
@@ -85,25 +91,36 @@ if (Meteor.isClient) {
 			stop: function(event, ui) {
 				var el = ui.item.get(0),
 						before = ui.item.prev('div.task').get(0),
-						after = ui.item.next('div.task').get(0);
+						after = ui.item.next('div.task').get(0),
+						newSettings = {};
 
 				var newAssigned = $(el).parent().data('user-id');
 				if (newAssigned !== el.$ui.data().assigned) {
-					$(this).sortable('cancel');
-					Tasks.update(el.$ui.data()._id, {$set: {assigned: newAssigned}});
+					newSettings.assigned = newAssigned;
 				}
 
-				var newRank;
-				if (!before && !after) {
-					newRank = el.$ui.data().rank;
-				} else if (!before) { //moving to the top of the list
-					newRank = SimpleRationalRanks.beforeFirst(after.$ui.data().rank);
-				} else if (!after) {
-					newRank = SimpleRationalRanks.afterLast(before.$ui.data().rank);
-				} else {
-					newRank = SimpleRationalRanks.between(before.$ui.data().rank, after.$ui.data().rank);
+				var taskList = $(el).parent().data('user-tasks-list');
+				if (taskList === 'user-active-tasks') {
+					newSettings.active = true;
+				} else if (taskList === 'user-tasks') {
+					newSettings.active = false;
+				} else if (taskList === 'tasks-unassigned') {
+					newSettings.active = false;
+					newSettings.assigned = false;
 				}
-				Tasks.update(el.$ui.data()._id, {$set: {rank: newRank}});
+
+				if (!before && !after) {
+					//newSettings.rank = el.$ui.data().rank;
+				} else if (!before) { //moving to the top of the list
+					newSettings.rank = SimpleRationalRanks.beforeFirst(after.$ui.data().rank);
+				} else if (!after) {
+					newSettings.rank = SimpleRationalRanks.afterLast(before.$ui.data().rank);
+				} else {
+					newSettings.rank = SimpleRationalRanks.between(before.$ui.data().rank, after.$ui.data().rank);
+				}
+
+				$(this).sortable('cancel');
+				Tasks.update(el.$ui.data()._id, {$set: newSettings});
 			}
 		});
 

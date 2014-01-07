@@ -26,7 +26,7 @@
 							<textarea class="new-task" placeholder="New Task"></textarea>
 						</label>
 					</div>
-					<div class="tasks sortable">
+					<div class="tasks sortable" data-user-tasks-list="tasks-unassigned">
 						<span class="watermark">Tasks</span>
 						{{> task_list tasks_unassigned}}
 					</div>
@@ -53,7 +53,15 @@
 		{{#each users}}
 			<div class="user column">
 				<h4>{{profile.name}}</h4>
-				<div class="tasks sortable" data-user-id="{{_id}}">
+				<div class="tasks sortable active" data-user-id="{{_id}}" data-user-tasks-list="user-active-tasks">
+					<span class="watermark">Active</span>
+					{{#each active_task _id}}
+						<div class="task">
+							<a href="#" data-reveal-id="task-detail-{{_id}}">{{name}}</a> <a class="remove-task right">&#215;</a>
+						</div>
+					{{/each}}
+				</div>
+				<div class="tasks sortable" data-user-id="{{_id}}" data-user-tasks-list="user-tasks">
 					<span class="watermark">Tasks</span>
 					{{#each assigned_tasks _id}}
 						<div class="task">

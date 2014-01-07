@@ -62,3 +62,16 @@
 .tabs dd > a {
 	padding: 0.5rem;
 }
+
+.tasks.active {
+	min-height: 63px;
+	background: palegreen;
+	margin-bottom: 10px;
+}
+
+.tasks.active .watermark {
+	-webkit-transform: rotate(0deg);
+	left: 10px;
+	top: 0;
+	font-size: 65px;
+}
