@@ -26,3 +26,26 @@
 .message pre {
 	margin-top: 3px;
 }
+
+.tasks {
+	position: relative;
+	min-height: 203px;
+}
+
+.task {
+	position: relative;
+	background: #fff;
+	padding: 5px;
+	margin-bottom: 5px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+}
+
+.watermark {
+	position: absolute;
+	font-size: 70px;
+	left: -65px;
+	top: 65px;
+	opacity: 0.1;
+	-webkit-transform: rotate(90deg);
+}

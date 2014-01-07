@@ -1,6 +1,11 @@
 Tasks = new Meteor.Collection('tasks');
+Projects = new Meteor.Collection('projects');
 
 if (Meteor.isClient) {
+	Template.team.projects = function() {
+		return Projects.find({}, {sort: {rank: 1}});
+	};
+
 	Template.team.tasks = function() {
 		return Tasks.find({}, {sort: {rank: 1}});
 	};
@@ -18,17 +23,25 @@ if (Meteor.isClient) {
 	};
 
 	Template.team.events({
-		'click #add-task': function (bla) {
-			name = $('#task-name').val();
-			if (name.length > 0 && Meteor.userId()) {
-				var toRankElement = Tasks.findOne({}, {sort: {rank: -1}});
-				var newRank = toRankElement ? toRankElement.rank : 0;
-				newRank += 1;
-				Tasks.insert({
-					name: name,
-					creator: Meteor.userId(),
-					rank: newRank
-				});
+		'keypress .new-task': function(event) {
+			if (event.keyCode === 13 && event.shiftKey === false) { //Enter without shift
+				var textarea = $(event.target);
+
+				if (textarea.val().length > 0 && Meteor.userId()) {
+					var toRankElement = Tasks.findOne({}, {sort: {rank: -1}});
+					var newRank = toRankElement ? toRankElement.rank : 0;
+					newRank += 1;
+					Tasks.insert({
+						name: textarea.val(),
+						creator: Meteor.userId(),
+						rank: newRank
+					});
+				}
+				$(textarea).blur();
+				$(textarea).val(''); //reset textarea
+				Meteor.setTimeout(function() {
+					$(textarea).focus();
+				}, 10); // fanzy enough we have to wait a split second or the cursor and whitespaces will stay
 			}
 		},
 
@@ -67,11 +80,12 @@ if (Meteor.isClient) {
 	UI.body.rendered = function() {
 
 		$('.sortable').sortable({
+			items: '> div.task',
 			connectWith: '.sortable',
 			stop: function(event, ui) {
 				var el = ui.item.get(0),
-						before = ui.item.prev().get(0),
-						after = ui.item.next().get(0);
+						before = ui.item.prev('div.task').get(0),
+						after = ui.item.next('div.task').get(0);
 
 				var newAssigned = $(el).parent().data('user-id');
 				if (newAssigned !== el.$ui.data().assigned) {

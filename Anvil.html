@@ -14,11 +14,6 @@
 		<h1>Team View!</h1>
 
 		<div class="small-6 column">
-			<div class="panel">
-				<label for="task-name"></label><input class="" id="task-name" type="text" value="" />
-				<button id="add-task" class="tiny round">add</button>
-			</div>
-
 			<dl class="tabs" data-tab>
 				<dd class="active"><a href="#tab-unassigned">Unassigned</a></dd>
 				<dd><a href="#tab-all">All</a></dd>
@@ -26,25 +21,38 @@
 			</dl>
 			<div class="tabs-content">
 				<div class="content active" id="tab-unassigned">
+					<div class="panel">
+						<label>
+							<textarea class="new-task" placeholder="New Task"></textarea>
+						</label>
+					</div>
 					<div class="tasks sortable">
+						<span class="watermark">Tasks</span>
 						{{#each tasks_unassigned}}
 							<div class="task">
-								<p><a href="#" data-reveal-id="task-detail-{{_id}}">{{name}}</a> <button class="remove-task tiny round">x</button></p>
+								<a href="#" data-reveal-id="task-detail-{{_id}}">{{name}}</a> <a class="remove-task right">&#215;</a>
 							</div>
 						{{/each}}
 					</div>
 				</div>
 				<div class="content" id="tab-all">
 					<div class="tasks sortable">
+						<span class="watermark">Tasks</span>
 						{{#each tasks}}
 							<div class="task">
-								<p><a href="#" data-reveal-id="task-detail-{{_id}}">{{name}}</a> <button class="remove-task tiny round">x</button></p>
+								<a href="#" data-reveal-id="task-detail-{{_id}}">{{name}}</a> <a class="remove-task right">&#215;</a>
 							</div>
 						{{/each}}
 					</div>
 				</div>
 				<div class="content" id="tab-projects">
-					<p>selection of projects... todo</p>
+					<div class="projects">
+						{{#each projects}}
+							<div class="project">
+								<a href="#">{{name}}</a> <a class="remove-project right">&#215;</a>
+							</div>
+						{{/each}}
+					</div>
 				</div>
 			</div>
 
@@ -54,9 +62,10 @@
 			<div class="user small-3 column">
 				<h4>{{profile.name}}</h4>
 				<div class="tasks sortable" data-user-id="{{_id}}">
+					<span class="watermark">Tasks</span>
 					{{#each assigned_tasks _id}}
 						<div class="task">
-							<p><a href="#" data-reveal-id="task-detail-{{_id}}">{{name}}</a> <button class="remove-task tiny round">x</button></p>
+							<a href="#" data-reveal-id="task-detail-{{_id}}">{{name}}</a> <a class="remove-task right">&#215;</a>
 						</div>
 					{{/each}}
 				</div>
