@@ -6,6 +6,10 @@ if (Meteor.isClient) {
 		return Projects.find({}, {sort: {rank: 1}});
 	};
 
+	Template.team.project_tasks = function(projectId) {
+		return Tasks.find({project: projectId, assigned: false}, {sort: {rank: 1}});
+	};
+
 	Template.team.tasks = function() {
 		return Tasks.find({}, {sort: {rank: 1}});
 	};
@@ -36,13 +40,15 @@ if (Meteor.isClient) {
 					var newRank = lowestTask ? lowestTask.rank + 1 : 1;
 					var highestPublicIdTask = Tasks.findOne({}, {sort: {publicId: -1}});
 					var newPublicId = highestPublicIdTask ? highestPublicIdTask.publicId + 1 : 1;
+					var project = $(event.target).data('project-id') ? $(event.target).data('project-id') : false;
 					Tasks.insert({
 						publicId: newPublicId,
 						name: textarea.val(),
 						creator: Meteor.userId(),
 						rank: newRank,
 						active: false,
-						assigned: false
+						assigned: false,
+						project: project
 					});
 				}
 				$(textarea).blur();
@@ -104,6 +110,11 @@ if (Meteor.isClient) {
 				var newAssigned = $(el).parent().data('user-id');
 				if (newAssigned !== el.$ui.data().assigned) {
 					newSettings.assigned = newAssigned;
+				}
+
+				var newProject = $(el).parent().data('project-id');
+				if (newProject !== el.$ui.data().project) {
+					newSettings.project = newProject;
 				}
 
 				var taskList = $(el).parent().data('user-tasks-list');
