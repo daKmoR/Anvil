@@ -32,10 +32,12 @@ if (Meteor.isClient) {
 				var textarea = $(event.target);
 
 				if (textarea.val().length > 0 && Meteor.userId()) {
-					var toRankElement = Tasks.findOne({}, {sort: {rank: -1}});
-					var newRank = toRankElement ? toRankElement.rank : 0;
-					newRank += 1;
+					var lowestTask = Tasks.findOne({}, {sort: {rank: -1}});
+					var newRank = lowestTask ? lowestTask.rank + 1 : 1;
+					var highestPublicIdTask = Tasks.findOne({}, {sort: {publicId: -1}});
+					var newPublicId = highestPublicIdTask ? highestPublicIdTask.publicId + 1 : 1;
 					Tasks.insert({
+						publicId: newPublicId,
 						name: textarea.val(),
 						creator: Meteor.userId(),
 						rank: newRank,
@@ -90,9 +92,9 @@ if (Meteor.isClient) {
 
 	UI.body.rendered = function() {
 
-		$('.sortable').sortable({
+		$('.tasks').sortable({
 			items: '> div.task',
-			connectWith: '.sortable',
+			connectWith: '.tasks',
 			stop: function(event, ui) {
 				var el = ui.item.get(0),
 						before = ui.item.prev('div.task').get(0),
@@ -106,6 +108,14 @@ if (Meteor.isClient) {
 
 				var taskList = $(el).parent().data('user-tasks-list');
 				if (taskList === 'user-active-tasks') {
+					var activeTask = Tasks.findOne({assigned: newAssigned, active: true});
+					if (activeTask) {
+						$.pnotify({
+							title: 'One active Task per user',
+							text: 'Task assigned and active, old one become inactive'
+						});
+						Tasks.update(activeTask._id, {$set: {active: false}});
+					}
 					newSettings.active = true;
 				} else if (taskList === 'user-tasks') {
 					newSettings.active = false;
@@ -114,14 +124,14 @@ if (Meteor.isClient) {
 					newSettings.assigned = false;
 				}
 
-				if (!before && !after) {
-					//newSettings.rank = el.$ui.data().rank;
-				} else if (!before) { //moving to the top of the list
-					newSettings.rank = SimpleRationalRanks.beforeFirst(after.$ui.data().rank);
-				} else if (!after) {
-					newSettings.rank = SimpleRationalRanks.afterLast(before.$ui.data().rank);
-				} else {
-					newSettings.rank = SimpleRationalRanks.between(before.$ui.data().rank, after.$ui.data().rank);
+				if (taskList !== 'user-active-tasks') {
+					if (before && after) { //moving in between two tasks
+						newSettings.rank = SimpleRationalRanks.between(before.$ui.data().rank, after.$ui.data().rank);
+					} else if (after) { //moving to the top of the list
+						newSettings.rank = SimpleRationalRanks.beforeFirst(after.$ui.data().rank);
+					} else if (before) { //moving to the bottom of the list
+						newSettings.rank = SimpleRationalRanks.afterLast(before.$ui.data().rank);
+					}
 				}
 
 				$(this).sortable('cancel');
@@ -129,12 +139,7 @@ if (Meteor.isClient) {
 			}
 		});
 
-//		$(document).foundation(function (response) {
-//			console.log(response.errors);
-//		});
-
 		$('#tabs').tabs();
-		//$('.task-detail').dialog({ autoOpen: false });
 
 		$('textarea').autosize();
 

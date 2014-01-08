@@ -15,20 +15,20 @@
 
 		<div class="task-lists column">
 			<ul class="nav nav-tabs">
-				<li><a href="#tab-unassigned" data-toggle="tab">Unassigned</a></li>
+				<li class="active"><a href="#tab-unassigned" data-toggle="tab">Unassigned</a></li>
 				<li><a href="#tab-all" data-toggle="tab">All</a></li>
 				<li><a href="#tab-projects" data-toggle="tab">Projects</a></li>
 			</ul>
 			<div class="tab-content">
 				<div class="tab-pane active" id="tab-unassigned">
 					<textarea class="new-task form-control" placeholder="New Task"></textarea>
-					<div class="tasks sortable" data-user-tasks-list="tasks-unassigned">
+					<div class="tasks" data-user-tasks-list="tasks-unassigned">
 						<span class="watermark">Tasks</span>
 						{{> task_list tasks_unassigned}}
 					</div>
 				</div>
 				<div class="tab-pane" id="tab-all">
-					<div class="tasks sortable">
+					<div class="tasks">
 						<span class="watermark">Tasks</span>
 							{{> task_list tasks}}
 					</div>
@@ -37,7 +37,7 @@
 					<div class="projects">
 						{{#each projects}}
 							<div class="project">
-								<a href="#">{{name}}</a> <a class="remove-project right">&#215;</a>
+								<a href="#task-detail-{{_id}}" class="dialog">#{{publicId}} {{name}}</a> <button type="button" class="remove-task right close" aria-hidden="true">&times;</button>
 							</div>
 						{{/each}}
 					</div>
@@ -48,19 +48,19 @@
 		{{#each users}}
 			<div class="user column">
 				<h4>{{profile.name}}</h4>
-				<div class="tasks sortable active" data-user-id="{{_id}}" data-user-tasks-list="user-active-tasks">
+				<div class="tasks active" data-user-id="{{_id}}" data-user-tasks-list="user-active-tasks">
 					<span class="watermark">Active</span>
 					{{#each active_task _id}}
 						<div class="task">
-							<a href="#task-detail-{{_id}}" class="dialog">{{name}}</a> <a class="remove-task right">&#215;</a>
+							<a href="#task-detail-{{_id}}" class="dialog">#{{publicId}} {{name}}</a> <button type="button" class="remove-task right close" aria-hidden="true">&times;</button>
 						</div>
 					{{/each}}
 				</div>
-				<div class="tasks sortable" data-user-id="{{_id}}" data-user-tasks-list="user-tasks">
+				<div class="tasks" data-user-id="{{_id}}" data-user-tasks-list="user-tasks">
 					<span class="watermark">Tasks</span>
 					{{#each assigned_tasks _id}}
 						<div class="task">
-							<a href="#task-detail-{{_id}}" class="dialog">{{name}}</a> <a class="remove-task right">&#215;</a>
+							<a href="#task-detail-{{_id}}" class="dialog">#{{publicId}} {{name}}</a> <button type="button" class="remove-task right close" aria-hidden="true">&times;</button>
 						</div>
 					{{/each}}
 				</div>
@@ -78,7 +78,7 @@
 <template name="task_list">
 	{{#each this}}
 	<div class="task">
-		<a href="#task-detail-{{_id}}" class="dialog">{{name}}</a> <a class="remove-task right">&#215;</a>
+		<a href="#task-detail-{{_id}}" class="dialog">#{{publicId}} {{name}}</a> <button type="button" class="remove-task right close" aria-hidden="true">&times;</button>
 	</div>
 	{{/each}}
 </template>
@@ -105,7 +105,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
+					<button type="button" class="btn btn-primary">Finished => To Testing</button>
 				</div>
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->

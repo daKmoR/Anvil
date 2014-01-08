@@ -6,7 +6,7 @@ body {
 	float: right;
 }
 
-.sortable {
+.tasks, .project {
 	min-height: 25px;
 	background: aliceblue;
 	padding: 15px;
