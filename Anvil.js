@@ -121,7 +121,7 @@ if (Meteor.isClient) {
 				var taskList = $(el).parent().data('user-tasks-list');
 				if (taskList === 'user-active-tasks') {
 					var activeTask = Tasks.findOne({assigned: newAssigned, active: true});
-					if (activeTask) {
+					if (activeTask && activeTask._id !== el.$ui.data()._id) {
 						$.pnotify({
 							title: 'One active Task per user',
 							text: 'Task assigned and active, old one become inactive'
