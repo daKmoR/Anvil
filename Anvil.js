@@ -101,6 +101,7 @@ if (Meteor.isClient) {
 		$('.tasks').sortable({
 			items: '> div.task',
 			connectWith: '.tasks',
+			placeholder: 'task highlight',
 			stop: function(event, ui) {
 				var el = ui.item.get(0),
 						before = ui.item.prev('div.task').get(0),

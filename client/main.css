@@ -88,3 +88,15 @@ body {
 	margin: 10px;
 	width: 94%;
 }
+
+.task.highlight {
+	height: 30px;
+	opacity: 0.6;
+	background: #ccc;
+	border-color: #a6a6a6;
+}
+
+.ui-sortable-helper {
+	-webkit-transform: rotate(3deg);
+	box-shadow: 2px 4px 9px rgba(50, 50, 50, 0.5);
+}
