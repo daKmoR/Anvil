@@ -1,0 +1,7 @@
+<template name="task_list">
+	{{#each this}}
+	<div class="task">
+		<a href="#task-detail-{{_id}}" class="dialog">#{{publicId}} {{name}}</a> <button type="button" class="remove-task right close" aria-hidden="true">&times;</button>
+	</div>
+	{{/each}}
+</template>

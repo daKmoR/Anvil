@@ -1,0 +1,28 @@
+<template name="task_detail">
+	<!-- Modal -->
+	<div class="modal fade task-detail" id="task-detail-{{_id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">{{name}}</h4>
+				</div>
+				<div class="modal-body">
+					<div class="messages">
+						{{#each messages}}
+						<div class="message clearfix">
+							<h6>Max: </h6>
+							<pre>{{this}}</pre>
+						</div>
+						{{/each}}
+					</div>
+					<textarea class="new-task-message form-control"></textarea>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Finished => To Testing</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+</template>
