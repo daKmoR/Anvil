@@ -104,7 +104,7 @@ SimpleRationalRanks = {
 	}
 };
 
-UI.body.rendered = function() {
+Template.team.rendered = function() {
 
 	$('.tasks').sortable({
 		items: '> div.task',
