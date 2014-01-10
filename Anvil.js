@@ -2,6 +2,15 @@ Tasks = new Meteor.Collection('tasks');
 Projects = new Meteor.Collection('projects');
 
 if (Meteor.isClient) {
+
+	Statuses = {
+		10: 'New',
+		20: 'Needs Feedback',
+		30: 'Accepted',
+		40: 'Needs Technical Feedback',
+		50: 'Under Review'
+	};
+
 	Template.team.projects = function() {
 		return Projects.find({}, {sort: {rank: 1}});
 	};
@@ -48,7 +57,11 @@ if (Meteor.isClient) {
 						rank: newRank,
 						active: false,
 						assigned: false,
-						project: project
+						project: project,
+						status: 30,
+						hold: false,
+						priority: false,
+						done: 0 // 1: done, -1: rejected
 					});
 				}
 				$(textarea).blur();
