@@ -70,11 +70,9 @@ Template.team.events({
 	'click .dialog': function(event) {
 		event.preventDefault();
 		var link = $(event.target);
-		Deps.autorun(function () {
-			Meteor.subscribe('task', link.data('task-id'), function() {
-				Session.set('taskId', link.data('task-id'));
-				$('#task').modal();
-			});
+		Session.set('taskId', link.data('task-id'));
+		Meteor.subscribe('task', link.data('task-id'), function() {
+			$('#task').modal();
 		});
 	}
 
