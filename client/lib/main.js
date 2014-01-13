@@ -72,13 +72,17 @@ Template.team.events({
 	},
 
 	'click .dialog': function(event) {
-		var id = $(event.target).attr('href');
-		$(id).modal();
+		event.preventDefault();
+		var link = $(event.target);
+		Meteor.subscribe('task', link.data('task-id'), function() {
+			Session.set('taskId', link.data('task-id'));
+			$('#task').modal();
+		});
 	}
 
 });
 
-Template.task_detail.events({
+Template.task.events({
 	'keypress .new-task-message': function(event, el, bla) {
 		if (event.keyCode === 13 && event.shiftKey === false) { //Enter without shift
 			var textarea = $(event.target);

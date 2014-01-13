@@ -40,7 +40,7 @@
 										<span class="watermark">Tasks</span>
 										{{#each project_tasks _id}}
 										<div class="task">
-											<a href="#task-detail-{{_id}}" class="dialog">#{{publicId}} {{name}}</a> <button type="button" class="remove-task right close" aria-hidden="true">&times;</button>
+											<a href="{{pathFor 'task'}}" data-task-id="{{_id}}" class="dialog">#{{publicId}} {{name}}</a> <button type="button" class="remove-task right close" aria-hidden="true">&times;</button>
 										</div>
 										{{/each}}
 									</div>
@@ -60,7 +60,7 @@
 				<span class="watermark">Active</span>
 				{{#each active_task _id}}
 				<div class="task">
-					<a href="#task-detail-{{_id}}" class="dialog">#{{publicId}} {{name}}</a> <button type="button" class="remove-task right close" aria-hidden="true">&times;</button>
+					<a href="{{pathFor 'task'}}" data-task-id="{{_id}}" class="dialog">#{{publicId}} {{name}}</a> <button type="button" class="remove-task right close" aria-hidden="true">&times;</button>
 				</div>
 				{{/each}}
 			</div>
@@ -68,7 +68,7 @@
 				<span class="watermark">Tasks</span>
 				{{#each assigned_tasks _id}}
 				<div class="task">
-					<a href="#task-detail-{{_id}}" class="dialog">#{{publicId}} {{name}}</a> <button type="button" class="remove-task right close" aria-hidden="true">&times;</button>
+					<a href="{{pathFor 'task'}}" data-task-id="{{_id}}" class="dialog">#{{publicId}} {{name}}</a> <button type="button" class="remove-task right close" aria-hidden="true">&times;</button>
 				</div>
 				{{/each}}
 			</div>
@@ -77,8 +77,8 @@
 
 	</div>
 
-	{{#each tasks}}
-	{{> task_detail}}
-	{{/each}}
+	{{#with currentTask}}
+		{{> task}}
+	{{/with}}
 
 </template>
