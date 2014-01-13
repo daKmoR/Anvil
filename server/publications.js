@@ -10,3 +10,7 @@ Meteor.publish('task', function (id) {
 Meteor.publish('projects', function () {
 	return Projects.find({});
 });
+
+Meteor.publish('users', function() {
+	return Meteor.users.find({});
+});

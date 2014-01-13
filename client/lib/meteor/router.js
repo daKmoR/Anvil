@@ -18,10 +18,15 @@ Router.map(function() {
 		before: function() {
 			Meteor.subscribe('tasks');
 			Meteor.subscribe('projects');
+			Meteor.subscribe('users');
+		},
+		waitOn: function() {
+			return Meteor.subscribe('users');
 		},
 		data: function() {
 			return {
-				currentTask: Tasks.findOne(Session.get('taskId'))
+				currentTask: Tasks.findOne(Session.get('taskId')),
+				users: Meteor.users.find()
 			};
 		}
 	});

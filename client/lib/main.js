@@ -22,10 +22,6 @@ Template.team.tasks_unassigned = function() {
 	return Tasks.find({assigned: false}, {sort: {rank: 1}});
 };
 
-Template.team.users = function() {
-	return Meteor.users.find();
-};
-
 Template.team.assigned_tasks = function(userId) {
 	return Tasks.find({assigned: userId, active: false}, {sort: {rank: 1}});
 };
@@ -74,9 +70,11 @@ Template.team.events({
 	'click .dialog': function(event) {
 		event.preventDefault();
 		var link = $(event.target);
-		Meteor.subscribe('task', link.data('task-id'), function() {
-			Session.set('taskId', link.data('task-id'));
-			$('#task').modal();
+		Deps.autorun(function () {
+			Meteor.subscribe('task', link.data('task-id'), function() {
+				Session.set('taskId', link.data('task-id'));
+				$('#task').modal();
+			});
 		});
 	}
 
