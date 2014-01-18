@@ -14,3 +14,8 @@ Meteor.publish('projects', function () {
 Meteor.publish('users', function() {
 	return Meteor.users.find({});
 });
+
+Meteor.publish('tasksAssigned', function (userId) {
+	check(userId, String);
+	return Tasks.find({assigned: userId});
+});

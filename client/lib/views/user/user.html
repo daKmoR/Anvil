@@ -1,0 +1,18 @@
+<template name="user">
+	<div class="user">
+		{{> loginButtons}}
+		<br />
+		<h1>User!</h1>
+
+		<div class="task-lists column">
+			<textarea class="new-task form-control" placeholder="New Task"></textarea>
+			<div class="tasks" data-user-tasks-list="tasks-assigned">
+				<span class="watermark">Tasks</span>
+				{{#each tasksAssigned}}
+					{{> taskListItem}}
+				{{/each}}
+			</div>
+		</div>
+	</div>
+
+</template>

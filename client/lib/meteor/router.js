@@ -41,4 +41,23 @@ Router.map(function() {
 		}
 	});
 
+	this.route('user', {
+		path: '/user/:_id',
+		before: function() {
+			var userId = this.params._id ? this.params._id : Meteor.userId();
+			Session.set('displayUserId', userId);
+			this.subscribe('user', userId);
+		}
+	});
+
+	this.route('user', {
+		path: '/user',
+		before: function() {
+			var userId = this.params._id ? this.params._id : Meteor.userId();
+			Session.set('displayUserId', userId);
+			this.subscribe('user', userId);
+			this.subscribe('tasksAssigned', userId);
+		}
+	});
+
 });
