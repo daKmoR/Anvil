@@ -15,13 +15,13 @@
 					<textarea class="new-task form-control" placeholder="New Task"></textarea>
 					<div class="tasks" data-user-tasks-list="tasks-unassigned">
 						<span class="watermark">Tasks</span>
-						{{> task_list tasks_unassigned}}
+						{{> taskList tasksUnassigned}}
 					</div>
 				</div>
 				<div class="tab-pane" id="tab-all">
 					<div class="tasks">
 						<span class="watermark">Tasks</span>
-						{{> task_list tasks}}
+						{{> taskList tasks}}
 					</div>
 				</div>
 				<div class="tab-pane" id="tab-projects">
@@ -38,11 +38,9 @@
 									<textarea class="new-task form-control" data-project-id="{{_id}}" placeholder="New Task"></textarea>
 									<div class="tasks" data-project-id="{{_id}}" data-user-tasks-list="project-tasks">
 										<span class="watermark">Tasks</span>
-										{{#each project_tasks _id}}
-										<div class="task">
-											<a href="{{pathFor 'task'}}" data-task-id="{{_id}}" class="dialog">#{{publicId}} {{name}}</a> <button type="button" class="remove-task right close" aria-hidden="true">&times;</button>
-										</div>
-										{{/each}}
+										{{#with tasksProject _id}}
+											{{> taskList}}
+										{{/with}}
 									</div>
 								</div>
 							</div>
@@ -58,19 +56,15 @@
 			<h4>{{profile.name}}</h4>
 			<div class="tasks active" data-user-id="{{_id}}" data-user-tasks-list="user-active-tasks">
 				<span class="watermark">Active</span>
-				{{#each active_task _id}}
-				<div class="task">
-					<a href="{{pathFor 'task'}}" data-task-id="{{_id}}" class="dialog">#{{publicId}} {{name}}</a> <button type="button" class="remove-task right close" aria-hidden="true">&times;</button>
-				</div>
-				{{/each}}
+				{{#with tasksActive _id}}
+					{{> taskList}}
+				{{/with}}
 			</div>
 			<div class="tasks" data-user-id="{{_id}}" data-user-tasks-list="user-tasks">
 				<span class="watermark">Tasks</span>
-				{{#each assigned_tasks _id}}
-				<div class="task">
-					<a href="{{pathFor 'task'}}" data-task-id="{{_id}}" class="dialog">#{{publicId}} {{name}}</a> <button type="button" class="remove-task right close" aria-hidden="true">&times;</button>
-				</div>
-				{{/each}}
+				{{#with tasksAssigned _id}}
+					{{> taskList}}
+				{{/with}}
 			</div>
 		</div>
 		{{/each}}

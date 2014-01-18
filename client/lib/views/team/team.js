@@ -2,7 +2,7 @@ Template.team.projects = function() {
 	return Projects.find({}, {sort: {rank: 1}});
 };
 
-Template.team.project_tasks = function(projectId) {
+Template.team.tasksProject = function(projectId) {
 	return Tasks.find({project: projectId, assigned: false}, {sort: {rank: 1}});
 };
 
@@ -10,15 +10,15 @@ Template.team.tasks = function() {
 	return Tasks.find({}, {sort: {rank: 1}});
 };
 
-Template.team.tasks_unassigned = function() {
+Template.team.tasksUnassigned = function() {
 	return Tasks.find({assigned: false}, {sort: {rank: 1}});
 };
 
-Template.team.assigned_tasks = function(userId) {
+Template.team.tasksAssigned = function(userId) {
 	return Tasks.find({assigned: userId, active: false}, {sort: {rank: 1}});
 };
 
-Template.team.active_task = function(userId) {
+Template.team.tasksActive = function(userId) {
 	return Tasks.find({assigned: userId, active: true}, {sort: {rank: 1}});
 };
 
