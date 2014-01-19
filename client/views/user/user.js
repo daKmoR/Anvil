@@ -9,3 +9,11 @@ Template.user.tasksAssignedStatus = function(statusId) {
 Template.user.statuses = function() {
 	return Statuses;
 };
+
+Template.user.rendered = function () {
+
+	taskDragging();
+
+	$('textarea').autosize();
+
+};
