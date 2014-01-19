@@ -13,13 +13,13 @@
 			<div class="tab-content">
 				<div class="tab-pane active" id="tab-unassigned">
 					<textarea class="new-task form-control" placeholder="New Task"></textarea>
-					<div class="tasks" data-user-tasks-list="tasks-unassigned">
+					<div class="tasks" data-tasks-list="team-unassigned">
 						<span class="watermark">Tasks</span>
 						{{> taskList tasksUnassigned}}
 					</div>
 				</div>
 				<div class="tab-pane" id="tab-all">
-					<div class="tasks">
+					<div class="tasks" data-tasks-list="team-all">
 						<span class="watermark">Tasks</span>
 						{{> taskList tasks}}
 					</div>
@@ -36,7 +36,7 @@
 							<div id="project-tasks-{{_id}}" class="panel-collapse collapse">
 								<div class="panel-body">
 									<textarea class="new-task form-control" data-project-id="{{_id}}" placeholder="New Task"></textarea>
-									<div class="tasks" data-project-id="{{_id}}" data-user-tasks-list="project-tasks">
+									<div class="tasks" data-project-id="{{_id}}" data-tasks-list="team-projects">
 										<span class="watermark">Tasks</span>
 										{{#with tasksProject _id}}
 											{{> taskList}}
@@ -54,13 +54,13 @@
 		{{#each users}}
 		<div class="user column">
 			<h4>{{profile.name}}</h4>
-			<div class="tasks active" data-user-id="{{_id}}" data-user-tasks-list="user-active-tasks">
+			<div class="tasks active" data-user-id="{{_id}}" data-tasks-list="team-user-active">
 				<span class="watermark">Active</span>
 				{{#with tasksActive _id}}
 					{{> taskList}}
 				{{/with}}
 			</div>
-			<div class="tasks" data-user-id="{{_id}}" data-user-tasks-list="user-tasks">
+			<div class="tasks" data-user-id="{{_id}}" data-tasks-list="team-user">
 				<span class="watermark">Tasks</span>
 				{{#with tasksAssigned _id}}
 					{{> taskList}}

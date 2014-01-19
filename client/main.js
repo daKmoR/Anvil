@@ -28,8 +28,8 @@ taskDragging = function() {
 				newSettings.project = newProject;
 			}
 
-			var taskList = $(el).parent().data('user-tasks-list');
-			if (taskList === 'user-active-tasks') {
+			var taskList = $(el).parent().data('tasks-list');
+			if (taskList === 'team-user-active') {
 				var activeTask = Tasks.findOne({assigned: newAssigned, active: true});
 				if (activeTask && activeTask._id !== el.$ui.data()._id) {
 					$.pnotify({
@@ -39,14 +39,14 @@ taskDragging = function() {
 					Tasks.update(activeTask._id, {$set: {active: false}});
 				}
 				newSettings.active = true;
-			} else if (taskList === 'user-tasks') {
+			} else if (taskList === 'team-user') {
 				newSettings.active = false;
-			} else if (taskList === 'tasks-unassigned') {
+			} else if (taskList === 'team-unassigned') {
 				newSettings.active = false;
 				newSettings.assigned = false;
 			}
 
-			if (taskList !== 'user-active-tasks') {
+			if (taskList !== 'team-user-active') {
 				if (before && after) { //moving in between two tasks
 					newSettings.rank = SimpleRationalRanks.between(before.$ui.data().rank, after.$ui.data().rank);
 				} else if (after) { //moving to the top of the list

@@ -7,7 +7,7 @@
 
 		<div class="task-lists column">
 			<textarea class="new-task form-control" placeholder="New Task"></textarea>
-			<div class="tasks" data-user-tasks-list="tasks-assigned">
+			<div class="tasks" data-user-tasks-list="user-assigned">
 				<span class="watermark">Tasks</span>
 				{{> taskList tasksAssigned}}
 			</div>
@@ -16,7 +16,7 @@
 		{{#each statuses}}
 		<div class="column">
 			<h4>{{name}}</h4>
-			<div class="tasks">
+			<div class="tasks" data-status-id="{{_id}}" data-tasks-list="user-status">
 				<span class="watermark">Tasks</span>
 				{{#with tasksAssignedStatus _id}}
 					{{> taskList}}
