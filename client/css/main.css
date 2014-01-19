@@ -100,3 +100,32 @@ body {
 	-webkit-transform: rotate(3deg);
 	box-shadow: 2px 4px 9px rgba(50, 50, 50, 0.5);
 }
+
+.task-dragging [data-tasks-list="user-status"] {
+	background: rgb(240, 243, 255);
+}
+
+.task-dragging [data-tasks-list="user-status"] .task {
+	display: none;
+}
+
+.task-dragging [data-tasks-list="user-status"] .ui-sortable-helper {
+	display: block;
+}
+
+.task-dragging [data-tasks-list="user-status"] .task.highlight {
+	display: block;
+}
+
+[data-tasks-list="user-status"] .info {
+	position: absolute;
+	top: 42%;
+	left: 23%;
+	width: 177px;
+	text-align: center;
+	opacity: 0;
+}
+
+.task-dragging [data-tasks-list="user-status"] .info {
+	opacity: 0.3;
+}
