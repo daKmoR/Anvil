@@ -12,7 +12,7 @@ Template.user.statuses = function() {
 
 Template.user.rendered = function () {
 
-	taskDragging();
+	TaskDragging();
 
 	$('textarea').autosize();
 
