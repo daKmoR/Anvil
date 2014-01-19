@@ -82,17 +82,14 @@ SimpleRationalRanks = {
 	}
 };
 
-Template.team.rendered = function() {
+Template.team.rendered = function () {
 
 	$('.tasks').sortable({
-		items: '> div.task',
+		items      : '> div.task',
 		connectWith: '.tasks',
 		placeholder: 'task highlight',
-		stop: function(event, ui) {
-			var el = ui.item.get(0),
-				before = ui.item.prev('div.task').get(0),
-				after = ui.item.next('div.task').get(0),
-				newSettings = {};
+		stop       : function (event, ui) {
+			var el = ui.item.get(0), before = ui.item.prev('div.task').get(0), after = ui.item.next('div.task').get(0), newSettings = {};
 
 			var newAssigned = $(el).parent().data('user-id');
 			if (newAssigned !== el.$ui.data().assigned) {
@@ -110,7 +107,7 @@ Template.team.rendered = function() {
 				if (activeTask && activeTask._id !== el.$ui.data()._id) {
 					$.pnotify({
 						title: 'One active Task per user',
-						text: 'Task assigned and active, old one become inactive'
+						text : 'Task assigned and active, old one become inactive'
 					});
 					Tasks.update(activeTask._id, {$set: {active: false}});
 				}
@@ -141,4 +138,4 @@ Template.team.rendered = function() {
 
 	$('textarea').autosize();
 
-}
+};

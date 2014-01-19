@@ -1,7 +1,7 @@
-Statuses = {
-	10: 'New',
-	20: 'Needs Feedback',
-	30: 'Accepted',
-	40: 'Needs Technical Feedback',
-	50: 'Under Review'
-};
+Statuses = [
+	{ _id: 10, name: 'New' },
+	{ _id: 20, name: 'Needs Feedback' },
+	{ _id: 30, name: 'Accepted' },
+	{ _id: 40, name: 'Needs Technical Feedback' },
+	{ _id: 50, name: 'Under Review' }
+];
