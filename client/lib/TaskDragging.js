@@ -2,7 +2,8 @@ SortableRankedTaskLists = [
 	'team-user',
 	'team-unassigned',
 	'team-all',
-	'team-project'
+	'team-project',
+	'user-assigned'
 ];
 
 TaskDragging = function() {
@@ -28,21 +29,31 @@ TaskDragging = function() {
 			}
 
 			var taskList = $(el).parent().data('tasks-list');
-			if (taskList === 'team-user-active') {
-				var activeTask = Tasks.findOne({assigned: newAssigned, active: true});
-				if (activeTask && activeTask._id !== el.$ui.data()._id) {
-					$.pnotify({
-						title: 'One active Task per user',
-						text : 'Task assigned and active, old one become inactive'
-					});
-					Tasks.update(activeTask._id, {$set: {active: false}});
-				}
-				newSettings.active = true;
-			} else if (taskList === 'team-user') {
-				newSettings.active = false;
-			} else if (taskList === 'team-unassigned') {
-				newSettings.active = false;
-				newSettings.assigned = false;
+			switch(taskList) {
+				case 'team-user-active':
+					var activeTask = Tasks.findOne({assigned: newAssigned, active: true});
+					if (activeTask && activeTask._id !== el.$ui.data()._id) {
+						$.pnotify({
+							title: 'One active Task per user',
+							text : 'Task assigned and active, old one become inactive'
+						});
+						Tasks.update(activeTask._id, {$set: {active: false}});
+					}
+					newSettings.active = true;
+					break;
+				case 'team-user':
+					newSettings.active = false;
+					break;
+				case 'team-unassigned':
+					newSettings.active = false;
+					newSettings.assigned = false;
+					break;
+				case 'user-status':
+					var newStatus = $(el).parent().data('status-id');
+					if (newStatus && newStatus !== el.$ui.data().status) {
+						newSettings.status = newStatus;
+					}
+					break;
 			}
 
 			if ( _.contains(SortableRankedTaskLists, taskList)) {
