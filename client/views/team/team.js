@@ -27,26 +27,12 @@ Template.team.events({
 		if (event.keyCode === 13 && event.shiftKey === false) { //Enter without shift
 			var textarea = $(event.target);
 
-			if (textarea.val().length > 0 && Meteor.userId()) {
-				var lowestTask = Tasks.findOne({}, {sort: {rank: -1}});
-				var newRank = lowestTask ? lowestTask.rank + 1 : 1;
-				var highestPublicIdTask = Tasks.findOne({}, {sort: {publicId: -1}});
-				var newPublicId = highestPublicIdTask ? highestPublicIdTask.publicId + 1 : 1;
-				var project = $(event.target).data('project-id') ? $(event.target).data('project-id') : false;
-				Tasks.insert({
-					publicId: newPublicId,
-					name: textarea.val(),
-					creator: Meteor.userId(),
-					rank: newRank,
-					active: false,
-					assigned: false,
-					project: project,
-					status: 30,
-					hold: false,
-					priority: false,
-					done: 0 // 1: done, -1: rejected
-				});
-			}
+			var project = $(event.target).data('project-id') ? $(event.target).data('project-id') : false;
+			new Task({
+				name: textarea.val(),
+				project: project
+			});
+
 			$(textarea).blur();
 			$(textarea).val(''); //reset textarea
 			Meteor.setTimeout(function() {
