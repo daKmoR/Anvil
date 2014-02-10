@@ -19,6 +19,9 @@ Router.map(function() {
 			Meteor.subscribe('tasks');
 			Meteor.subscribe('projects');
 			Meteor.subscribe('users');
+			Meteor.subscribe('organisations');
+			Meteor.subscribe('organisations_users');
+
 		},
 		waitOn: function() {
 			return Meteor.subscribe('users');

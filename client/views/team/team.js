@@ -22,6 +22,20 @@ Template.team.tasksActive = function(userId) {
 	return Tasks.find({assigned: userId, active: true}, {sort: {rank: 1}});
 };
 
+Template.team.joinWithOrganisation = function() {
+	var organisationsUsers = this;
+	var organisation = Organisations.findOne({_id: organisationsUsers.organisation_id});
+	return _.extend(organisationsUsers, _.omit(organisation, '_id'));
+};
+
+Template.team.organisationsAssigned = function() {
+	return OrganisationsUsers.find({
+		user_id: Meteor.userId()
+	}, {
+		sort: { index: 1 }
+	});
+};
+
 Template.team.events({
 	'keypress .new-task': function(event) {
 		if (event.keyCode === 13 && event.shiftKey === false) { //Enter without shift
@@ -52,6 +66,20 @@ Template.team.events({
 		Meteor.subscribe('task', link.data('task-id'), function() {
 			$('#task').modal();
 		});
+	},
+
+	'keypress .new-organisation': function(event) {
+		if (event.keyCode === 13 && event.shiftKey === false) { //Enter without shift
+			var textarea = $(event.target);
+			var newOrganisationId = Organisations.insert({
+				name: textarea.val()
+			});
+
+			OrganisationsUsers.insert({
+				user_id: Meteor.userId(),
+				organisation_id: newOrganisationId
+			});
+		}
 	}
 
 });

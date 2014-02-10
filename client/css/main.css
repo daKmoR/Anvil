@@ -2,6 +2,27 @@ body {
 	font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 }
 
+aside {
+	float: left;
+	margin-right: 20px;
+}
+
+.nav {
+	padding-left: 20px;
+}
+
+nav > .nav {
+	padding-left: 0;
+}
+
+nav > .nav > li > .nav {
+	padding-left: 10px;
+}
+
+nav > .nav > li > a {
+	background: rgb(207, 207, 207);
+}
+
 .right {
 	float: right;
 }

@@ -19,3 +19,11 @@ Meteor.publish('tasksAssigned', function (userId) {
 	check(userId, String);
 	return Tasks.find({assigned: userId});
 });
+
+Meteor.publish('organisations', function() {
+	return Organisations.find({});
+});
+
+Meteor.publish('organisations_users', function() {
+	return OrganisationsUsers.find({});
+});
