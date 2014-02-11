@@ -33,7 +33,7 @@
 				{{#with joinWithOrganisation}}
 					<li>
 						<a href="" data-toggle="collapse" data-target="#organisation-{{_id}}">{{name}}</a>
-						<ul class="collapse in nav" id="organisation-{{_id}}">
+						<ul class="collapse in nav organisation" id="organisation-{{_id}}" data-organisation-id="{{organisation_id}}">
 							<li>
 								<a href="" data-toggle="collapse" data-target="#aside-views-{{_id}}">Views</a>
 								<ul class="collapse nav" id="aside-views-{{_id}}">
@@ -42,7 +42,7 @@
 								</ul>
 							</li>
 							<li>
-								<a href="{{pathFor 'team'}}" data-toggle="collapse" data-target="#aside-teams-{{_id}}">Teams</a>
+								<a href="" data-toggle="collapse" data-target="#aside-teams-{{_id}}">Teams</a>
 								<ul class="collapse nav" id="aside-teams-{{_id}}">
 									<li><a href="{{pathFor 'team'}}">Digi</a></li>
 									<li><a href="{{pathFor 'team'}}">Design</a></li>
@@ -51,6 +51,7 @@
 							<li>
 								<a href="" data-toggle="collapse" data-target="#aside-projects-{{_id}}">Projects</a>
 								<ul class="collapse nav" id="aside-projects-{{_id}}">
+									<li class="new"><textarea class="new-project form-control" placeholder="New Project"></textarea></li>
 									{{#each projects}}
 										<li><a href="">{{name}}</a></li>
 									{{/each}}
@@ -59,8 +60,10 @@
 							<li>
 								<a href="" data-toggle="collapse" data-target="#aside-users-{{_id}}">Users</a>
 								<ul class="collapse nav" id="aside-users-{{_id}}">
-									{{#each users}}
-										<li><a href="">{{profile.name}}</a></li>
+									{{#each usersInOrganisation}}
+										{{#with joinWithUser}}
+											<li><a href="">{{profile.name}}</a></li>
+										{{/with}}
 									{{/each}}
 								</ul>
 							</li>

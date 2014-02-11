@@ -2,6 +2,14 @@ body {
 	font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 }
 
+textarea.form-control {
+	border: none;
+	background: none;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+	resize: none;
+}
+
 aside {
 	float: left;
 	margin-right: 20px;

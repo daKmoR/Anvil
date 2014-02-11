@@ -1,5 +1,6 @@
 Template.team.projects = function() {
-	return Projects.find({}, {sort: {rank: 1}});
+	var organisationsUsers = this;
+	return Projects.find({organisationId: organisationsUsers.organisation_id}, {sort: {rank: 1}});
 };
 
 Template.team.tasksProject = function(projectId) {
@@ -22,6 +23,21 @@ Template.team.tasksActive = function(userId) {
 	return Tasks.find({assigned: userId, active: true}, {sort: {rank: 1}});
 };
 
+Template.team.joinWithUser = function() {
+	var organisationsUsers = this;
+	var user = Meteor.users.findOne({_id: organisationsUsers.user_id});
+	return _.extend(organisationsUsers, _.omit(user, '_id'));
+};
+
+Template.team.usersInOrganisation = function() {
+	var organisationsUsers = this;
+	return OrganisationsUsers.find({
+		organisation_id: organisationsUsers.organisation_id
+	}, {
+		sort: { rank: 1 }
+	});
+};
+
 Template.team.joinWithOrganisation = function() {
 	var organisationsUsers = this;
 	var organisation = Organisations.findOne({_id: organisationsUsers.organisation_id});
@@ -32,26 +48,22 @@ Template.team.organisationsAssigned = function() {
 	return OrganisationsUsers.find({
 		user_id: Meteor.userId()
 	}, {
-		sort: { index: 1 }
+		sort: { rank: 1 }
 	});
 };
 
 Template.team.events({
 	'keypress .new-task': function(event) {
 		if (event.keyCode === 13 && event.shiftKey === false) { //Enter without shift
-			var textarea = $(event.target);
+			var area = $(event.target);
 
 			var project = $(event.target).data('project-id') ? $(event.target).data('project-id') : false;
 			new Task({
-				name: textarea.val(),
+				name: area.val(),
 				project: project
 			});
 
-			$(textarea).blur();
-			$(textarea).val(''); //reset textarea
-			Meteor.setTimeout(function() {
-				$(textarea).focus();
-			}, 10); // fanzy enough we have to wait a split second or the cursor and whitespaces will stay
+			Textarea.reset(area);
 		}
 	},
 
@@ -70,15 +82,30 @@ Template.team.events({
 
 	'keypress .new-organisation': function(event) {
 		if (event.keyCode === 13 && event.shiftKey === false) { //Enter without shift
-			var textarea = $(event.target);
+			var area = $(event.target);
 			var newOrganisationId = Organisations.insert({
-				name: textarea.val()
+				name: area.val()
 			});
 
 			OrganisationsUsers.insert({
 				user_id: Meteor.userId(),
 				organisation_id: newOrganisationId
 			});
+			Textarea.reset(area);
+		}
+	},
+
+	'keypress .new-project': function(event) {
+		if (event.keyCode === 13 && event.shiftKey === false) { //Enter without shift
+			var area = $(event.target);
+			var organisationId = $(area.parents('.organisation')[0]).data('organisation-id');
+
+			Projects.insert({
+				name: area.val(),
+				organisationId: organisationId
+			});
+
+			Textarea.reset(area);
 		}
 	}
 
