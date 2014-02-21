@@ -1,9 +1,9 @@
 /* router comes here */
 
 Router.configure({
-	layout: 'layout',
-	loadingTemplate: 'loading',
-	notFoundTemplate: 'notFound'
+	layoutTemplate: 'DefaultLayout',
+	loadingTemplate: 'DefaultLoading',
+	notFoundTemplate: 'DefaultNotFound'
 });
 
 Router.map(function() {

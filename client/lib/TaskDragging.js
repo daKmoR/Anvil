@@ -15,16 +15,16 @@ TaskDragging = function() {
 		start: function() {
 			$(document.body).addClass('task-dragging');
 		},
-		stop       : function (event, ui) {
+		stop: function (event, ui) {
 			var el = ui.item.get(0), before = ui.item.prev('div.task').get(0), after = ui.item.next('div.task').get(0), newSettings = {};
 
 			var newAssigned = $(el).parent().data('user-id');
-			if (newAssigned !== el.$ui.data().assigned) {
+			if (newAssigned !== el.$ui.component.data().assigned) {
 				newSettings.assigned = newAssigned;
 			}
 
 			var newProject = $(el).parent().data('project-id');
-			if (newProject !== el.$ui.data().project) {
+			if (newProject !== el.$ui.component.data().project) {
 				newSettings.project = newProject;
 			}
 
@@ -32,7 +32,7 @@ TaskDragging = function() {
 			switch(taskList) {
 				case 'team-user-active':
 					var activeTask = Tasks.findOne({assigned: newAssigned, active: true});
-					if (activeTask && activeTask._id !== el.$ui.data()._id) {
+					if (activeTask && activeTask._id !== el.$ui.component.data()._id) {
 						$.pnotify({
 							title: 'One active Task per user',
 							text : 'Task assigned and active, old one become inactive'
@@ -50,7 +50,7 @@ TaskDragging = function() {
 					break;
 				case 'user-status':
 					var newStatus = $(el).parent().data('status-id');
-					if (newStatus && newStatus !== el.$ui.data().status) {
+					if (newStatus && newStatus !== el.$ui.component.data().status) {
 						newSettings.status = newStatus;
 					}
 					break;
@@ -58,16 +58,16 @@ TaskDragging = function() {
 
 			if ( _.contains(SortableRankedTaskLists, taskList)) {
 				if (before && after) { //moving in between two tasks
-					newSettings.rank = SimpleRationalRanks.between(before.$ui.data().rank, after.$ui.data().rank);
+					newSettings.rank = SimpleRationalRanks.between(before.$ui.component.data().rank, after.$ui.component.data().rank);
 				} else if (after) { //moving to the top of the list
-					newSettings.rank = SimpleRationalRanks.beforeFirst(after.$ui.data().rank);
+					newSettings.rank = SimpleRationalRanks.beforeFirst(after.$ui.component.data().rank);
 				} else if (before) { //moving to the bottom of the list
-					newSettings.rank = SimpleRationalRanks.afterLast(before.$ui.data().rank);
+					newSettings.rank = SimpleRationalRanks.afterLast(before.$ui.component.data().rank);
 				}
 			}
 
 			$(this).sortable('cancel');
-			Tasks.update(el.$ui.data()._id, {$set: newSettings});
+			Tasks.update(el.$ui.component.data()._id, {$set: newSettings});
 			$(document.body).removeClass('task-dragging');
 		}
 	});
