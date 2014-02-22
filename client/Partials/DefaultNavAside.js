@@ -13,6 +13,15 @@ Template.DefaultNavAside.usersInOrganisation = function() {
 	});
 };
 
+Template.DefaultNavAside.projectsInOrganisation = function() {
+	var organisation = this;
+	return Projects.find({
+		organisationId: organisation.organisation_id
+	}, {
+		sort: { rank: 1 }
+	});
+};
+
 Template.DefaultNavAside.joinWithOrganisation = function() {
 	var organisationsUsers = this;
 	var organisation = Organisations.findOne({_id: organisationsUsers.organisation_id});
