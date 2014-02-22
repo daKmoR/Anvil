@@ -16,8 +16,10 @@
 					<li>
 						<a href="" data-toggle="collapse" data-target="#aside-teams-{{_id}}">Teams</a>
 						<ul class="collapse nav" id="aside-teams-{{_id}}">
-							<li><a href="{{pathFor 'team'}}">Digi</a></li>
-							<li><a href="{{pathFor 'team'}}">Design</a></li>
+							<li class="new"><textarea class="new-team form-control" placeholder="New Team"></textarea></li>
+							{{#each teamsInOrganisation}}
+							<li><a href="">{{name}}</a></li>
+							{{/each}}
 						</ul>
 					</li>
 					<li>

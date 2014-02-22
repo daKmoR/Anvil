@@ -16,15 +16,15 @@ Router.map(function() {
 	this.route('team', {
 		path: '/team',
 		before: function() {
-			Meteor.subscribe('tasks');
-			Meteor.subscribe('projects');
-			Meteor.subscribe('users');
-			Meteor.subscribe('organisations');
-			Meteor.subscribe('organisations_users');
+//			Meteor.subscribe('tasks');
+//			Meteor.subscribe('projects');
+//			Meteor.subscribe('users');
+//			Meteor.subscribe('organisations');
+//			Meteor.subscribe('organisations_users');
 
 		},
 		waitOn: function() {
-			return Meteor.subscribe('users');
+//			return Meteor.subscribe('users');
 		},
 		data: function() {
 			return {
@@ -37,7 +37,7 @@ Router.map(function() {
 	this.route('task', {
 		path: '/task/:_id',
 		before: function() {
-			this.subscribe('task', this.params._id);
+//			this.subscribe('task', this.params._id);
 		},
 		data: function() {
 			return Tasks.findOne(this.params._id);
@@ -49,8 +49,8 @@ Router.map(function() {
 		before: function() {
 			var userId = this.params._id ? this.params._id : Meteor.userId();
 			Session.set('displayUserId', userId);
-			this.subscribe('user', userId);
-			this.subscribe('tasksAssigned', userId);
+//			this.subscribe('user', userId);
+//			this.subscribe('tasksAssigned', userId);
 		}
 	});
 

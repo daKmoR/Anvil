@@ -22,6 +22,15 @@ Template.DefaultNavAside.projectsInOrganisation = function() {
 	});
 };
 
+Template.DefaultNavAside.teamsInOrganisation = function() {
+	var organisation = this;
+	return Teams.find({
+		organisationId: organisation.organisationId
+	}, {
+		sort: { rank: 1 }
+	});
+};
+
 Template.DefaultNavAside.joinWithOrganisation = function() {
 	var organisationsUsers = this;
 	var organisation = Organisations.findOne({_id: organisationsUsers.organisationId});
@@ -65,6 +74,21 @@ Template.DefaultNavAside.events({
 
 			Textarea.reset(area);
 		}
+	},
+
+	'keypress .new-team': function(event) {
+		if (event.keyCode === 13 && event.shiftKey === false) { //Enter without shift
+			var area = $(event.target);
+			var organisationId = $(area.parents('.organisation')[0]).data('organisation-id');
+
+			Teams.insert({
+				name: area.val(),
+				organisationId: organisationId
+			});
+
+			Textarea.reset(area);
+		}
 	}
+
 
 });
