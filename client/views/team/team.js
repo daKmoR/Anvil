@@ -1,6 +1,6 @@
 Template.team.projects = function() {
 	var organisationsUsers = this;
-	return Projects.find({organisationId: organisationsUsers.organisation_id}, {sort: {rank: 1}});
+	return Projects.find({organisationId: organisationsUsers.organisationId}, {sort: {rank: 1}});
 };
 
 Template.team.tasksProject = function(projectId) {

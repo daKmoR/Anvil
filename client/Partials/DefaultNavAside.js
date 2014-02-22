@@ -1,13 +1,13 @@
 Template.DefaultNavAside.joinWithUser = function() {
 	var organisationsUsers = this;
-	var user = Meteor.users.findOne({_id: organisationsUsers.user_id});
+	var user = Meteor.users.findOne({_id: organisationsUsers.userId});
 	return _.extend(organisationsUsers, _.omit(user, '_id'));
 };
 
 Template.DefaultNavAside.usersInOrganisation = function() {
 	var organisationsUsers = this;
 	return OrganisationsUsers.find({
-		organisation_id: organisationsUsers.organisation_id
+		organisationId: organisationsUsers.organisationId
 	}, {
 		sort: { rank: 1 }
 	});
@@ -16,7 +16,7 @@ Template.DefaultNavAside.usersInOrganisation = function() {
 Template.DefaultNavAside.projectsInOrganisation = function() {
 	var organisation = this;
 	return Projects.find({
-		organisationId: organisation.organisation_id
+		organisationId: organisation.organisationId
 	}, {
 		sort: { rank: 1 }
 	});
@@ -24,13 +24,13 @@ Template.DefaultNavAside.projectsInOrganisation = function() {
 
 Template.DefaultNavAside.joinWithOrganisation = function() {
 	var organisationsUsers = this;
-	var organisation = Organisations.findOne({_id: organisationsUsers.organisation_id});
+	var organisation = Organisations.findOne({_id: organisationsUsers.organisationId});
 	return _.extend(organisationsUsers, _.omit(organisation, '_id'));
 };
 
 Template.DefaultNavAside.organisationsAssigned = function() {
 	return OrganisationsUsers.find({
-		user_id: Meteor.userId()
+		userId: Meteor.userId()
 	}, {
 		sort: { rank: 1 }
 	});
@@ -46,8 +46,8 @@ Template.DefaultNavAside.events({
 			});
 
 			OrganisationsUsers.insert({
-				user_id: Meteor.userId(),
-				organisation_id: newOrganisationId
+				userId: Meteor.userId(),
+				organisationId: newOrganisationId
 			});
 			Textarea.reset(area);
 		}
