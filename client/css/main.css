@@ -35,11 +35,6 @@ nav > .nav > li > a {
 	float: right;
 }
 
-.tasks, .project {
-	min-height: 25px;
-	background: aliceblue;
-	padding: 15px;
-}
 
 .tabs-content > .content {
 	width: 100%;
@@ -63,7 +58,13 @@ nav > .nav > li > a {
 	margin-top: 3px;
 }
 
-.tasks {
+.tasks, .project, .list {
+	min-height: 25px;
+	background: aliceblue;
+	padding: 15px;
+}
+
+.tasks, .list {
 	position: relative;
 	min-height: 203px;
 }

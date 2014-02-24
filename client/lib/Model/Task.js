@@ -27,4 +27,4 @@ Task = function(options) {
 
 	Tasks.insert(options);
 	return this;
-}
+};

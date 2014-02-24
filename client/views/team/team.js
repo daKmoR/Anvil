@@ -46,9 +46,10 @@ Template.team.events({
 		event.preventDefault();
 		var link = $(event.target);
 		Session.set('taskId', link.data('task-id'));
-		Meteor.subscribe('task', link.data('task-id'), function() {
-			$('#task').modal();
-		});
+		$('#task').modal();
+//		Meteor.subscribe('task', link.data('task-id'), function() {
+//			$('#task').modal();
+//		});
 	}
 
 });
@@ -56,9 +57,15 @@ Template.team.events({
 
 Template.team.rendered = function () {
 
-	TaskDragging();
+	//ToDo: delay is a workaround as we currently use autopublish and we don't wait for the data before rendering
+	_.delay(
+		function() {
+			TaskDragging();
+			$('#tabs').tabs();
+			$('.new-task').autosize();
+		}, 1000
+	);
 
-	$('#tabs').tabs();
-	$('textarea').autosize();
+
 
 };

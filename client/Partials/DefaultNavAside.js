@@ -1,9 +1,3 @@
-Template.DefaultNavAside.joinWithUser = function() {
-	var organisationsUsers = this;
-	var user = Meteor.users.findOne({_id: organisationsUsers.userId});
-	return _.extend(organisationsUsers, _.omit(user, '_id'));
-};
-
 Template.DefaultNavAside.usersInOrganisation = function() {
 	var organisationsUsers = this;
 	return OrganisationsUsers.find({
@@ -34,7 +28,7 @@ Template.DefaultNavAside.teamsInOrganisation = function() {
 Template.DefaultNavAside.joinWithOrganisation = function() {
 	var organisationsUsers = this;
 	var organisation = Organisations.findOne({_id: organisationsUsers.organisationId});
-	return _.extend(organisationsUsers, _.omit(organisation, '_id'));
+	return _.extend(organisation, _.omit(organisationsUsers, '_id'));
 };
 
 Template.DefaultNavAside.organisationsAssigned = function() {
@@ -50,16 +44,13 @@ Template.DefaultNavAside.events({
 	'keypress .new-organisation': function(event) {
 		if (event.keyCode === 13 && event.shiftKey === false) { //Enter without shift
 			var area = $(event.target);
-			var newOrganisationId = Organisations.insert({
-				name: area.val()
-			});
-
-			OrganisationsUsers.insert({
-				userId: Meteor.userId(),
-				organisationId: newOrganisationId
-			});
+			new Organisation({name: area.val()});
 			Textarea.reset(area);
 		}
+	},
+
+	'click .remove-organisation': function(event) {
+		//Organisations(this._id).remove();
 	},
 
 	'keypress .new-project': function(event) {

@@ -14,7 +14,7 @@ Router.map(function() {
 
 Router.map(function() {
 	this.route('team', {
-		path: '/team',
+		path: '/team/:_id',
 		before: function() {
 //			Meteor.subscribe('tasks');
 //			Meteor.subscribe('projects');
@@ -28,8 +28,9 @@ Router.map(function() {
 		},
 		data: function() {
 			return {
-				currentTask: Tasks.findOne(Session.get('taskId')),
-				users: Meteor.users.find()
+				team: Teams.findOne(this.params._id),
+				teamUsers: TeamsUsers.find({teamId: this.params._id}),
+				currentTask: Tasks.findOne(Session.get('taskId'))
 			};
 		}
 	});

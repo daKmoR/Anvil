@@ -1,8 +1,6 @@
 <template name="team">
 	<div class="team">
-		{{> loginButtons}}
-		<br />
-		<h1>Team View!</h1>
+		<h1>Team {{team.name}}!</h1>
 
 		<div class="task-lists column">
 			<ul class="nav nav-tabs">
@@ -51,23 +49,34 @@
 			</div>
 		</div>
 
-		{{#each users}}
+		{{#each teamUsers}}
+		{{#with joinWithUser}}
 		<div class="user column">
 			<h4>{{profile.name}}</h4>
-			<div class="tasks active" data-user-id="{{_id}}" data-tasks-list="team-user-active">
+			<div class="tasks active" data-user-id="{{userId}}" data-tasks-list="team-user-active">
 				<span class="watermark">Active</span>
-				{{#with tasksActive _id}}
+				{{#with tasksActive userId}}
 					{{> taskList}}
 				{{/with}}
 			</div>
-			<div class="tasks" data-user-id="{{_id}}" data-tasks-list="team-user">
+			<div class="tasks" data-user-id="{{userId}}" data-tasks-list="team-user">
 				<span class="watermark">Tasks</span>
-				{{#with tasksAssigned _id}}
+				{{#with tasksAssigned userId}}
 					{{> taskList}}
 				{{/with}}
 			</div>
 		</div>
+		{{/with}}
 		{{/each}}
+
+		<div class="column">
+			<h4>
+				<textarea class="add-user-to-team form-control" placeholder="Add User"></textarea>
+			</h4>
+			<div class="list">
+				<span>+ <br />Add <br />User</span>
+			</div>
+		</div>
 
 	</div>
 
