@@ -4,7 +4,7 @@
 			{{#each organisationsAssigned}}
 			{{#with organisation}}
 			<li>
-				<a href="" data-toggle="collapse" data-target="#organisation-{{_id}}">{{name}}{{rank}} <button type="button" class="remove-organisation right close" aria-hidden="true">×</button></a>
+				<a href="" data-toggle="collapse" data-target="#organisation-{{_id}}">{{name}}{{rankOrganisation}} <button type="button" class="remove-organisation right close" aria-hidden="true">×</button></a>
 				<ul class="collapse in nav organisation" id="organisation-{{_id}}" data-organisation-id="{{organisationId}}">
 					<li>
 						<a href="" data-toggle="collapse" data-target="#aside-views-{{_id}}">Views</a>
@@ -33,10 +33,10 @@
 					</li>
 					<li>
 						<a href="" data-toggle="collapse" data-target="#aside-users-{{_id}}">Users</a>
-						<ul class="collapse nav" id="aside-users-{{_id}}">
+						<ul class="collapse nav aside-users" id="aside-users-{{_id}}">
 							{{#each users}}
 							{{#with user}}
-							<li><a href="">{{profile.name}}</a></li>
+							<li class="aside-user"><a href="">{{profile.name}}</a></li>
 							{{/with}}
 							{{/each}}
 						</ul>

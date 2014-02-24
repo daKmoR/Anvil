@@ -9,7 +9,7 @@ SortableRankedTaskLists = [
 TaskDragging = function() {
 
 	$('.tasks').sortable({
-		items      : '> div.task',
+		items: '> div.task',
 		connectWith: '.tasks',
 		placeholder: 'task highlight',
 		start: function() {
@@ -57,13 +57,7 @@ TaskDragging = function() {
 			}
 
 			if ( _.contains(SortableRankedTaskLists, taskList)) {
-				if (before && after) { //moving in between two tasks
-					newSettings.rank = SimpleRationalRanks.between(before.$ui.component.data().rank, after.$ui.component.data().rank);
-				} else if (after) { //moving to the top of the list
-					newSettings.rank = SimpleRationalRanks.beforeFirst(after.$ui.component.data().rank);
-				} else if (before) { //moving to the bottom of the list
-					newSettings.rank = SimpleRationalRanks.afterLast(before.$ui.component.data().rank);
-				}
+				newSettings.rank = SimpleRationalRanks.newRank(before, after);
 			}
 
 			$(this).sortable('cancel');
@@ -72,4 +66,4 @@ TaskDragging = function() {
 		}
 	});
 
-}
+};
