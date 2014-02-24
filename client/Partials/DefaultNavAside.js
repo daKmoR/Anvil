@@ -19,13 +19,10 @@ Template.DefaultNavAside.events({
 	'keypress .new-project': function(event) {
 		if (event.keyCode === 13 && event.shiftKey === false) { //Enter without shift
 			var area = $(event.target);
-			var organisationId = $(area.parents('.organisation')[0]).data('organisation-id');
-
-			Projects.insert({
+			new Project({
 				name: area.val(),
-				organisationId: organisationId
+				organisationId: this.organisationId
 			});
-
 			Textarea.reset(area);
 		}
 	},
@@ -33,16 +30,12 @@ Template.DefaultNavAside.events({
 	'keypress .new-team': function(event) {
 		if (event.keyCode === 13 && event.shiftKey === false) { //Enter without shift
 			var area = $(event.target);
-			var organisationId = $(area.parents('.organisation')[0]).data('organisation-id');
-
-			Teams.insert({
+			new Team({
 				name: area.val(),
-				organisationId: organisationId
+				organisationId: this.organisationId
 			});
-
 			Textarea.reset(area);
 		}
 	}
-
 
 });

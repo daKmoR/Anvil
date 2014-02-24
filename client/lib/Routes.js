@@ -21,17 +21,17 @@ Router.map(function() {
 //			Meteor.subscribe('users');
 //			Meteor.subscribe('organisations');
 //			Meteor.subscribe('organisations_users');
-
 		},
 		waitOn: function() {
 //			return Meteor.subscribe('users');
 		},
 		data: function() {
-			return {
-				team: Teams.findOne(this.params._id),
-				teamUsers: TeamsUsers.find({teamId: this.params._id}),
-				currentTask: Tasks.findOne(Session.get('taskId'))
-			};
+			return Teams.findOne(this.params._id);
+//			return {
+//				team: Teams.findOne(this.params._id),
+//				teamUsers: TeamsUsers.find({teamId: this.params._id}),
+//				currentTask: Tasks.findOne(Session.get('taskId'))
+//			};
 		}
 	});
 

@@ -1,6 +1,6 @@
 <template name="team">
 	<div class="team">
-		<h1>Team {{team.name}}!</h1>
+		<h1>Team {{name}}!</h1>
 
 		<div class="task-lists column">
 			<ul class="nav nav-tabs">
@@ -49,8 +49,8 @@
 			</div>
 		</div>
 
-		{{#each teamUsers}}
-		{{#with joinWithUser}}
+		{{#each users}}
+		{{#with user}}
 		<div class="user column">
 			<h4>{{profile.name}}</h4>
 			<div class="tasks active" data-user-id="{{userId}}" data-tasks-list="team-user-active">
