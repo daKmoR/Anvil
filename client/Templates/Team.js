@@ -14,6 +14,10 @@ Template.Team.events({
 		this.removeAsModel();
 	},
 
+	'click .remove-user-from-team': function() {
+		this.removeFromTeam();
+	},
+
 	'click .dialog': function(event) {
 		event.preventDefault();
 		var link = $(event.target);

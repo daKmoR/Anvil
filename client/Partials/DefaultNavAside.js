@@ -44,20 +44,38 @@ Template.DefaultNavAside.rendered = function () {
 
 	//ToDo: delay is a workaround as we currently use autopublish and we don't wait for the data before rendering
 	_.delay(function() {
+		$('.add-user-to-team-overlay').sortable({
+			over: function(event, ui) { $(event.target).toggleClass('hover'); },
+			out: function(event, ui) { $(event.target).toggleClass('hover'); }
+		});
 		$('.aside-users').sortable({
 			items: '> .aside-user',
-			//connectWith: '.aside-users',
+			connectWith: '.add-user-to-team-overlay',
 			placeholder: 'task highlight',
 			start: function() {
 				$(document.body).addClass('user-dragging');
 			},
 			stop: function (event, ui) {
 				var el = ui.item.get(0), before = ui.item.prev('.aside-user').get(0), after = ui.item.next('.aside-user').get(0), newSettings = {};
-				newSettings.rank = SimpleRationalRanks.newRank(before, after);
+
+				var container = $(el).parent();
+				if (container.hasClass('aside-users')) {
+					newSettings.rank = SimpleRationalRanks.newRank(before, after);
+				}
+
+				if (container.hasClass('add-user-to-team-overlay')) {
+					TeamsUsers.insert({
+						teamId: container.data('team-id'),
+						userId: el.$ui.component.data().userId
+					});
+					TaskDragging();
+				}
 
 				$(this).sortable('cancel');
 				var organisationsUsers = OrganisationsUsers.findOne({organisationId: el.$ui.component.data().organisationId, userId: el.$ui.component.data().userId});
-				OrganisationsUsers.update(organisationsUsers._id, {$set: newSettings});
+				if (organisationsUsers) {
+					OrganisationsUsers.update(organisationsUsers._id, {$set: newSettings});
+				}
 				$(document.body).removeClass('user-dragging');
 			}
 		});

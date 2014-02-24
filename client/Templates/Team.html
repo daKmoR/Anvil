@@ -1,11 +1,14 @@
 <template name="Team">
+	<div class="add-user-to-team-overlay" data-team-id="{{_id}}">
+		<div class="info">Add User</div>
+	</div>
 	<div class="team">
 		<h1>Team {{name}}!</h1>
 
 		{{#each users}}
 		{{#with user}}
 		<div class="user column">
-			<h4>{{profile.name}}</h4>
+			<h4>{{profile.name}} <button type="button" class="remove-user-from-team right close" aria-hidden="true">×</button></h4>
 			<div class="tasks active" data-user-id="{{userId}}" data-tasks-list="team-user-active">
 				<span class="watermark">Active</span>
 				{{#with tasksActive}}
