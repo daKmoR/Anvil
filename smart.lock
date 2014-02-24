@@ -9,13 +9,19 @@
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",
         "branch": "shark"
-      }
+      },
+      "collection-helpers": {}
     },
     "packages": {
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",
         "branch": "shark",
         "commit": "4f55d0acc293abb4a9492229e8d2be0ec0e176c1"
+      },
+      "collection-helpers": {
+        "git": "https://github.com/dburles/meteor-collection-helpers.git",
+        "tag": "v0.2.3",
+        "commit": "52c4c692421acea557fb329f43f65ed11b4832df"
       }
     }
   }

@@ -1,42 +1,5 @@
-Template.DefaultNavAside.usersInOrganisation = function() {
-	var organisationsUsers = this;
-	return OrganisationsUsers.find({
-		organisationId: organisationsUsers.organisationId
-	}, {
-		sort: { rank: 1 }
-	});
-};
-
-Template.DefaultNavAside.projectsInOrganisation = function() {
-	var organisation = this;
-	return Projects.find({
-		organisationId: organisation.organisationId
-	}, {
-		sort: { rank: 1 }
-	});
-};
-
-Template.DefaultNavAside.teamsInOrganisation = function() {
-	var organisation = this;
-	return Teams.find({
-		organisationId: organisation.organisationId
-	}, {
-		sort: { rank: 1 }
-	});
-};
-
-Template.DefaultNavAside.joinWithOrganisation = function() {
-	var organisationsUsers = this;
-	var organisation = Organisations.findOne({_id: organisationsUsers.organisationId});
-	return _.extend(organisation, _.omit(organisationsUsers, '_id'));
-};
-
 Template.DefaultNavAside.organisationsAssigned = function() {
-	return OrganisationsUsers.find({
-		userId: Meteor.userId()
-	}, {
-		sort: { rank: 1 }
-	});
+	return OrganisationsUsers.find({userId: Meteor.userId()}, {sort: {rank: 1}});
 };
 
 Template.DefaultNavAside.events({
@@ -50,7 +13,7 @@ Template.DefaultNavAside.events({
 	},
 
 	'click .remove-organisation': function(event) {
-		//Organisations(this._id).remove();
+		this.removeAsModel();
 	},
 
 	'keypress .new-project': function(event) {

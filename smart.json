@@ -1,12 +1,13 @@
 {
-	"meteor": {
-		"git": "https://github.com/meteor/meteor.git",
-		"branch": "shark"
-	},
+  "meteor": {
+    "git": "https://github.com/meteor/meteor.git",
+    "branch": "shark"
+  },
   "packages": {
     "iron-router": {
-			"git": "https://github.com/EventedMind/iron-router.git",
-			"branch": "shark"
-		}
+      "git": "https://github.com/EventedMind/iron-router.git",
+      "branch": "shark"
+    },
+    "collection-helpers": {}
   }
 }
