@@ -14,6 +14,7 @@ Router.map(function() {
 
 Router.map(function() {
 	this.route('team', {
+		template: 'Team',
 		path: '/team/:_id',
 		before: function() {
 //			Meteor.subscribe('tasks');

@@ -8,6 +8,7 @@ textarea.form-control {
 	box-shadow: none;
 	-webkit-box-shadow: none;
 	resize: none;
+	position: relative;
 }
 
 aside {

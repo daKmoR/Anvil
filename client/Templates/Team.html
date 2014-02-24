@@ -1,0 +1,31 @@
+<template name="Team">
+	<div class="team">
+		<h1>Team {{name}}!</h1>
+
+		{{#each users}}
+		{{#with user}}
+		<div class="user column">
+			<h4>{{profile.name}}</h4>
+			<div class="tasks active" data-user-id="{{userId}}" data-tasks-list="team-user-active">
+				<span class="watermark">Active</span>
+				{{#with tasksActive}}
+					{{> taskList}}
+				{{/with}}
+			</div>
+			<div class="tasks" data-user-id="{{userId}}" data-tasks-list="team-user">
+				<span class="watermark">Tasks</span>
+				<textarea class="new-task form-control" placeholder="New Task"></textarea>
+				{{#with tasks}}
+					{{> taskList}}
+				{{/with}}
+			</div>
+		</div>
+		{{/with}}
+		{{/each}}
+	</div>
+
+	{{#with currentTask}}
+		{{> task}}
+	{{/with}}
+
+</template>
