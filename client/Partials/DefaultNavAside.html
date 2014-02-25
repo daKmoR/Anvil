@@ -4,7 +4,7 @@
 			{{#each organisationsAssigned}}
 			{{#with organisation}}
 			<li>
-				<a href="" data-toggle="collapse" data-target="#organisation-{{_id}}">{{name}}{{rankOrganisation}} <button type="button" class="remove-organisation right close" aria-hidden="true">×</button></a>
+				<a href="" data-toggle="collapse" data-target="#organisation-{{_id}}">{{name}}{{rankOrganisation}} <button type="button" class="remove remove-organisation right close" aria-hidden="true">×</button></a>
 				<ul class="collapse in nav organisation" id="organisation-{{_id}}" data-organisation-id="{{organisationId}}">
 					<li>
 						<a href="" data-toggle="collapse" data-target="#aside-views-{{_id}}">Views</a>
@@ -18,16 +18,16 @@
 						<ul class="collapse nav" id="aside-teams-{{_id}}">
 							<li class="new"><input type="text" class="new-team form-control" placeholder="New Team" /></li>
 							{{#each teams}}
-							<li><a href="{{pathFor 'team'}}">{{name}}</a></li>
+							<li><a href="{{pathFor 'team'}}">{{name}}<button type="button" class="remove remove-team right close" aria-hidden="true">×</button></a></li>
 							{{/each}}
 						</ul>
 					</li>
 					<li>
 						<a href="" data-toggle="collapse" data-target="#aside-projects-{{_id}}">Projects</a>
-						<ul class="collapse nav" id="aside-projects-{{_id}}">
+						<ul class="collapse nav aside-projects" id="aside-projects-{{_id}}">
 							<li class="new"><input type="text" class="new-project form-control" placeholder="New Project" /></li>
 							{{#each projects}}
-							<li><a href="">{{name}}</a></li>
+							<li class="aside-project"><a href="">{{name}}{{rank}}<button type="button" class="remove remove-project right close" aria-hidden="true">×</button></a></li>
 							{{/each}}
 						</ul>
 					</li>

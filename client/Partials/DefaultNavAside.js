@@ -12,7 +12,7 @@ Template.DefaultNavAside.events({
 		}
 	},
 
-	'click .remove-organisation': function(event) {
+	'click .remove': function(event) {
 		this.removeAsModel();
 	},
 
@@ -44,6 +44,27 @@ Template.DefaultNavAside.rendered = function () {
 
 	//ToDo: delay is a workaround as we currently use autopublish and we don't wait for the data before rendering
 	_.delay(function() {
+		$('.aside-projects').sortable({
+			items: '> .aside-project',
+			//connectWith: '.aside-projects',
+			placeholder: 'task highlight',
+			start: function() {
+				$(document.body).addClass('project-dragging');
+			},
+			stop: function (event, ui) {
+				var el = ui.item.get(0), before = ui.item.prev('.aside-project').get(0), after = ui.item.next('.aside-project').get(0), newSettings = {};
+
+				var container = $(el).parent();
+				if (container.hasClass('aside-projects')) {
+					newSettings.rank = SimpleRationalRanks.newRank(before, after);
+				}
+
+				$(this).sortable('cancel');
+				Projects.update(el.$ui.component.data()._id, {$set: newSettings});
+				$(document.body).removeClass('project-dragging');
+			}
+		});
+
 		$('.add-user-to-team-overlay').sortable({
 			over: function(event, ui) { $(event.target).toggleClass('hover'); },
 			out: function(event, ui) { $(event.target).toggleClass('hover'); }
