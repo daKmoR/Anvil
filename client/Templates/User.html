@@ -1,0 +1,35 @@
+<template name="User">
+	<h1>Hello {{user.profile.name}}!</h1>
+
+	<div class="user column">
+		<div class="tasks active" data-user-id="{{userId}}" data-tasks-list="team-user-active">
+			<span class="watermark">Active</span>
+			{{#with user.tasksActive}}
+			{{> taskList}}
+			{{/with}}
+		</div>
+		<div class="tasks" data-user-id="{{userId}}" data-tasks-list="team-user">
+			<span class="watermark">Tasks</span>
+			<textarea class="new-task form-control" placeholder="New Task"></textarea>
+			{{#with user.tasks}}
+			{{> taskList}}
+			{{/with}}
+		</div>
+	</div>
+
+	{{#each statuses}}
+	<div class="column">
+		<h4>{{name}}</h4>
+		<div class="tasks" data-status-id="{{_id}}" data-tasks-list="user-status">
+			<span class="watermark">Tasks</span>
+			<span class="info">Drop chances Status only (no reordering)</span>
+			{{#if is10}}{{#with ../user.tasksWithAbove10}}{{> taskList}}{{/with}}{{/if}}
+			{{#if is20}}{{#with ../user.tasksWithAbove20}}{{> taskList}}{{/with}}{{/if}}
+			{{#if is30}}{{#with ../user.tasksWithAbove30}}{{> taskList}}{{/with}}{{/if}}
+			{{#if is40}}{{#with ../user.tasksWithAbove40}}{{> taskList}}{{/with}}{{/if}}
+			{{#if is50}}{{#with ../user.tasksWithAbove50}}{{> taskList}}{{/with}}{{/if}}
+		</div>
+	</div>
+	{{/each}}
+
+</template>

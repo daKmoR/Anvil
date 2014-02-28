@@ -18,7 +18,7 @@
 						<ul class="collapse nav" id="aside-teams-{{_id}}">
 							<li class="new"><input type="text" class="new-team form-control" placeholder="New Team" /></li>
 							{{#each teams}}
-							<li><a href="{{pathFor 'team'}}">{{name}}<button type="button" class="remove remove-team right close" aria-hidden="true">×</button></a></li>
+							<li><a href="{{pathFor 'Team'}}">{{name}}<button type="button" class="remove remove-team right close" aria-hidden="true">×</button></a></li>
 							{{/each}}
 						</ul>
 					</li>
@@ -36,7 +36,7 @@
 						<ul class="collapse nav aside-users" id="aside-users-{{_id}}">
 							{{#each users}}
 							{{#with user}}
-							<li class="aside-user"><a href="">{{profile.name}}</a></li>
+							<li class="aside-user"><a href="{{pathFor 'User'}}">{{profile.name}}</a></li>
 							{{/with}}
 							{{/each}}
 						</ul>

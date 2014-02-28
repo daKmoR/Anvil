@@ -1,7 +1,7 @@
 <template name="taskList">
 	{{#each this}}
 	<div class="task" style="{{#if above}}margin-top: {{above}}px{{/if}}">
-		<a href="{{pathFor 'task'}}" data-task-id="{{_id}}" class="dialog">#{{publicId}} {{name}}</a> <button type="button" class="remove-task right close" aria-hidden="true">&times;</button>
+		<a href="{{pathFor 'Task'}}" data-task-id="{{_id}}" class="dialog">#{{publicId}} {{name}}</a> <button type="button" class="remove-task right close" aria-hidden="true">&times;</button>
 	</div>
 	{{/each}}
 </template>

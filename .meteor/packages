@@ -8,6 +8,7 @@ preserve-inputs
 accounts-ui
 accounts-password
 iron-router
+blaze-layout
 insecure
 autopublish
 collection-helpers

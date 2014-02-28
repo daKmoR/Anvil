@@ -2,22 +2,13 @@
   "meteor": {
     "git": "https://github.com/meteor/meteor.git",
     "branch": "shark",
-    "commit": "ea5050497da1d24194c44c5d27a91e9979e839ba"
+    "commit": "208bbea9aa1f1c3d7a9863e958edf8b74eaa3595"
   },
   "dependencies": {
     "basePackages": {
-      "iron-router": {
-        "git": "https://github.com/EventedMind/iron-router.git",
-        "branch": "shark"
-      },
       "collection-helpers": {}
     },
     "packages": {
-      "iron-router": {
-        "git": "https://github.com/EventedMind/iron-router.git",
-        "branch": "shark",
-        "commit": "4f55d0acc293abb4a9492229e8d2be0ec0e176c1"
-      },
       "collection-helpers": {
         "git": "https://github.com/dburles/meteor-collection-helpers.git",
         "tag": "v0.2.3",
